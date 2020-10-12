@@ -28,7 +28,7 @@ public class Key {
         return null;
     }
 
-    //REQUIRES:
+    //REQUIRES: passed keymap is not empty
     //MODIFIES: this
     //EFFECTS: sets the this keymap to input keymap
     public void setWholeKeySet(HashMap<Character, Character> keymap) {
@@ -42,7 +42,6 @@ public class Key {
         return false;
     }
 
-    //REQUIRES:
     //MODIFIES: this
     //EFFECTS: removes key value pair from keymap if key is there and returns true, if key is not there,
     // returns false
@@ -50,30 +49,33 @@ public class Key {
         return false;
     }
 
+    //REQUIRES: keymap is not empty
     //MODIFIES: this
     //EFFECTS: replaces value of the key with input newValue and returns true, if the key is not in
     // keymap, returns false
-    public boolean replaceKey(char key, Character newValue) {
+    public boolean replaceValue(char key, Character newValue) {
         return false;
     }
 
     //MODIFIES: this
-    //EFFECTS: adds the key to the sureList if the key is not already there and returns true,
-    //otherwise returns false.
-    public boolean addKeyValueToSure(Character key) {
+    //EFFECTS: adds the key to the sureList if the key is not already there and if the key is in keymap
+    // and returns true, otherwise returns false.
+    public boolean addKeyToSure(Character key) {
         return false;
     }
 
     //MODIFIES: this
     //EFFECTS: removes value from the sureList if the value is there and returns true, otherwise returns
     //false.
-    public boolean removeKeyValueFromSure(Character key) {
+    public boolean removeKeyFromSure(Character key) {
         return false;
     }
 
     //MODIFIES: this
-    //EFFECTS: removes all key value pairs in keymap, which keys are not in sureList.
-    public void clearAllButSure() {
+    //EFFECTS: removes all key value pairs in keymap, which keys are not in sureList, and returns true,
+    // if sureList is empty, returns false.
+    public boolean clearAllButSure() {
+        return false;
     }
 
 //    //MODIFIES: this
