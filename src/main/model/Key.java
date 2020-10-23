@@ -1,10 +1,8 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 
 
@@ -18,6 +16,8 @@ public class Key {
     private HashMap<Character, Character> mapKey;
     private HashSet<Character> sureList;
 
+    // MODIFIES: this
+    // EFFECTS: creates a new Key object
     public Key() {
         keyMap = new HashMap<>();
         mapKey = new HashMap<>();
@@ -57,7 +57,7 @@ public class Key {
     public boolean addKeyValue(char key, Character value) {
         if (keyMap.putIfAbsent(key, value) == null) {
             keyMap.putIfAbsent(key,value);
-            mapKey.putIfAbsent(key, value);
+            mapKey.putIfAbsent(value, key);
             return true;
         }
         return false;
@@ -135,25 +135,24 @@ public class Key {
         return keyMap.containsValue(c);
     }
 
-//    //MODIFIES: this
-//    //EFFECTS: replaces the values of keys that correspond to the characters in string keys with
-//    //characters that correspond to
-//    public void addTuplesToKey(String keys, String values){
-//
-//    }
-//
-//    public void clearTuples(String keys){
-//
-//    }
+    // TODO specify and add tests
+    public void clear() {
+        keyMap.clear();
+        mapKey.clear();
+    }
 
+    // TODO specify and add tests
+    public String printKey() {
+        String keyString = new String();
+        Set<Character> keys = keyMap.keySet();
+        for (Character c: keys) {
+            String kv = c.toString() + "-" + keyMap.get(c).toString() + ", ";
+            keyString = keyString + kv;
+        }
+        return keyString;
+    }
 
-
-
-
-
-
-
-
-
-
+    public boolean hasKeyForValue(Character c) {
+        return mapKey.get(c) != null;
+    }
 }

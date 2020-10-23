@@ -17,6 +17,8 @@ public class WorkSpaceTest {
 
     @BeforeEach
     public void setup(){
+        ws = new WorkSpace();
+
         key1 = new Key();
         map = new HashMap<>();
         map.put('a', '1');
@@ -67,7 +69,7 @@ public class WorkSpaceTest {
         ws.addKeySetToSaved(key2);
         assertEquals(2, ws.getSavedKeys().size());
         assertEquals(key1, ws.getSavedKeys().get(0));
-        assertEquals(key2, ws.getSavedKeys().get(0));
+        assertEquals(key2, ws.getSavedKeys().get(1));
     }
 
     @Test

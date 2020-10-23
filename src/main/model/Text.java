@@ -14,7 +14,8 @@ public class Text {
     ArrayList<Character> text;
     ArrayList<Character> ciphertext;
 
-    // TODO write specification
+    // MODIFIES: this
+    // EFFECTS: creates a new Text object
     public Text() {
         key = new Key();
         text = new ArrayList<Character>();
@@ -115,7 +116,7 @@ public class Text {
         for (Character c : ciphertext) {
             if (!key.containsValue(c)) {
                 decodedText.add('-');
-            } else if (key.getKey(c) == null) {
+            } else if (!key.hasKeyForValue(c)) {
                 decodedText.add('-');
             } else {
                 Character v = key.getKey(c);
@@ -134,21 +135,23 @@ public class Text {
 
 
     // TODO  write tests
-    //EFFECTS: converts ciphertext into a String and returns this String.
-    public String produceEncryptedText() {
-        return " ";
+    //EFFECTS: converts text into a String and returns this String.
+    public String printText() {
+        String text = "";
+        for (Character c: this.text) {
+            String character = c.toString();
+            text = text + character;
+        }
+        return text;
     }
 
-    public String produceDecryptedText() {
-        return " ";
+    // TODO  write tests
+    public String printCiphertext() {
+        String text = "";
+        for (Character c: this.ciphertext) {
+            String character = c.toString();
+            text = text + character;
+        }
+        return text;
     }
-
-
-//    //REQUIRES:
-//    //MODIFIES:
-//    //EFFECTS:
-//    public void doFrequencyAnalysis(int windowLength) {
-//
-//    }
-
 }
