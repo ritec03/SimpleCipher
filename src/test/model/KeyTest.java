@@ -32,9 +32,9 @@ class KeyTest {
 
     @Test
     public void testGetKey() {
-        assertEquals('a', testKey.getValue('b'));
-        assertEquals('c', testKey.getValue('d'));
-        assertEquals('e', testKey.getValue('f'));
+        assertEquals('a', testKey.getKey('b'));
+        assertEquals('c', testKey.getKey('d'));
+        assertEquals('e', testKey.getKey('f'));
     }
     @Test
     // setting whole keymap when keymap is empty
@@ -259,8 +259,8 @@ class KeyTest {
         testKey.addKeyToSure('b');
         testKey.addKeyToSure('d');
 
-        assertTrue(testKey.removeKeyFromSure('a'));
-        assertTrue(testKey.removeKeyFromSure('e'));
+        assertFalse(testKey.removeKeyFromSure('a'));
+        assertFalse(testKey.removeKeyFromSure('e'));
 
         assertEquals(5, testKey.getKeyMap().size());
         checkSetupMapElements();
@@ -268,7 +268,7 @@ class KeyTest {
 
     @Test
     // sureList is empty
-    private void testClearAllButSureEmpty(){
+    public void testClearAllButSureEmpty(){
         assertEquals(5, testKey.getKeyMap().size());
         checkSetupMapElements();
 
@@ -278,22 +278,21 @@ class KeyTest {
         checkSetupMapElements();
     }
 
-
     @Test
     // sureList is not empty
-    private void testClearAllButSureNonEmpty(){
+    public void testClearAllButSureNonEmpty(){
         assertEquals(5, testKey.getKeyMap().size());
         checkSetupMapElements();
         testKey.addKeyToSure('a');
         testKey.addKeyToSure('e');
 
-        assertFalse(testKey.clearAllButSure());
+        assertTrue(testKey.clearAllButSure());
 
-        assertEquals(3, testKey.getKeyMap().size());
-        assertEquals('c', testKey.getValue('b'));
-        assertEquals('d', testKey.getValue('c'));
-        assertEquals('e', testKey.getValue('d'));
+        assertEquals(2, testKey.getKeyMap().size());
+        assertEquals('b', testKey.getValue('a'));
+        assertEquals('f', testKey.getValue('e'));
     }
+
     private void checkSetupMapElements() {
         assertEquals('b', testKey.getValue('a'));
         assertEquals('c', testKey.getValue('b'));

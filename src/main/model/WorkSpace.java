@@ -1,22 +1,43 @@
 package model;
 
+import java.util.List;
+
 /**
  * This class
  */
 public class WorkSpace {
+    private Text text;
+    private Text previousText;
+    private Key key;
+    private Key previousKey;
+    private List<Text> savedTexts;
+    private List<Key> savedKeys;
 
-    //MODIFIES: this
-    //EFFECTS: sets keymap with input key
-    public void setKeyMap(Key key){
 
+    public List<Text> getSavedTexts() {
+        return null;
     }
 
-    //REQUIRES: keymap is not null
-    //MODIFIES: this
-    //EFFECTS: sets previousKey with key
-    public void setPreviousKey(Key key){
-
+    public List<Key> getSavedKeys() {
+        return null;
     }
+
+    public Key getPreviousKey() {
+        return null;
+    }
+
+    public Key getKey() {
+        return null;
+    }
+
+    public Text getPreviousText() {
+        return null;
+    }
+
+    public Text getText() {
+        return null;
+    }
+
 
     //MODIFIES: this
     //EFFECTS: adds key to savedKeys
@@ -25,21 +46,35 @@ public class WorkSpace {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets text field to text
-    public void addText(Text text){
+    //EFFECTS: adds text to savedTexts
+    public void addTextToSaved(Text text){
+
+    }
+
+    //REQUIRES: keymap is not null
+    //MODIFIES: this
+    //EFFECTS: sets key as previousKey
+    public void setPreviousKey(Key key){
 
     }
 
     //MODIFIES: this
     //EFFECTS: adds text to previousText
-    public void addTextToPrevious(Text text){
+    public void setPreviousText(Text text){
 
     }
 
     //MODIFIES: this
-    //EFFECTS: adds text to savedTexts
-    public void addTextToSaved(Text text){
+    //EFFECTS: sets text field to text, sets the current text, if there is any, to previousText
+    public void setText(Text text){
 
     }
+
+    //MODIFIES: this
+    //EFFECTS: sets keymap with input key, sets the current key, if there is any, to previousKey
+    public void setKey(Key key){
+
+    }
+
 
 }
