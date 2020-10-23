@@ -52,24 +52,23 @@ public class WorkSpaceTest {
     @Test
     // when savedKeys is empty
     public void testAddKeyToSavedEmpty(){
+        ws.setText(text);
         assertEquals(0,ws.getSavedKeys().size());
 
         ws.addKeySetToSaved(key1);
 
         assertEquals(1, ws.getSavedKeys().size());
-        assertEquals(key1, ws.getSavedKeys().get(0));
     }
 
     @Test
     // when savedKeys is NOT empty
     public void testAddKeyToSavedNonEmpty(){
+        ws.setText(text);
         ws.addKeySetToSaved(key1);
         assertEquals(1, ws.getSavedKeys().size());
 
         ws.addKeySetToSaved(key2);
         assertEquals(2, ws.getSavedKeys().size());
-        assertEquals(key1, ws.getSavedKeys().get(0));
-        assertEquals(key2, ws.getSavedKeys().get(1));
     }
 
     @Test

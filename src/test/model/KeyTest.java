@@ -201,8 +201,6 @@ class KeyTest {
     }
 
     @Test
-    // TODO: think if i need to get more access to sureList field
-    // TODO: think to add tests for when sure list is empty and non-empty
     // key is not in map
     public void testAddKeyToSureNotThere(){
         assertEquals(5, testKey.getKeyMap().size());
