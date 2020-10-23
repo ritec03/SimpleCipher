@@ -119,6 +119,7 @@ public class DecoderEncoder {
                 + "\n Type '6' to print current key.");
     }
 
+    
     private void actOnInput(String input) {
         if (input.equals("1")) {
             addValueKey();
