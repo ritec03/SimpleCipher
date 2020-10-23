@@ -108,12 +108,11 @@ public class DecoderEncoder {
     private void ciphertextInstructions() {
         System.out.println("Your ciphertext is: " + ws.getText().printCiphertext());
         System.out.println("Your decrypted text is: ");
-        ws.getText().encryptText();
+        ws.getText().decryptCiphertext();
         System.out.println(ws.getText().printText());
         System.out.println("Your key is: " + ws.getText().getKey().printKey());
         System.out.println("Please, select the following options:"
                 + "\n Type '1' to add key-value pair"
-                + "\n Type '2' to produce decoded text"
                 + "\n Type '3' to save the current key to saved"
                 + "\n Type '4' to clear the current key"
                 + "\n Type '5' if you want to switch to a saved key"
@@ -124,6 +123,9 @@ public class DecoderEncoder {
         if (input.equals("1")) {
             addValueKey();
             workWithCiphertext();
+        }  else if (input.equals("2")) {
+            ws.getText().encryptText();
+            System.out.println(ws.getText().printText());
         } else if (input.equals("3")) {
             addKeyToSaved();
         } else if (input.equals("4")) {
