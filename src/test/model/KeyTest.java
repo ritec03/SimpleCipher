@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,15 +37,41 @@ class KeyTest {
         assertEquals('c', testKey.getKey('d'));
         assertEquals('e', testKey.getKey('f'));
     }
+
+    @Test
+    public void testKeySize(){
+        Key k = makeEmptyKey();
+
+        assertEquals(map.size(), testKey.keySize());
+    }
+
+    @Test
+    public void testGetKeySetEmpty() {
+        Key k = makeEmptyKey();
+        Set<Character> keySet = k.getKeySet();
+        assertEquals(0, keySet.size());
+    }
+
+    @Test
+    public void testGetKeySetNonEmpty(){
+        Set<Character> keySet = testKey.getKeySet();
+        assertEquals(map.size(), keySet.size());
+        assertTrue(keySet.contains('a'));
+        assertTrue(keySet.contains('b'));
+        assertTrue(keySet.contains('c'));
+        assertTrue(keySet.contains('d'));
+        assertTrue(keySet.contains('e'));
+    }
+
     @Test
     // setting whole keymap when keymap is empty
     public void testSetWholeKeyMapEmpty() {
         HashMap<Character,Character> testMap = new HashMap<>();
         testKey.setWholeKeySet(testMap);
 
-        assertEquals(0,testKey.getKeyMap().size());
+        assertEquals(0,testKey.keySize());
         testKey.setWholeKeySet(map);
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(),testKey.keySize());
         checkSetupMapElements();
 
         HashMap<Character, Character> map1 = new HashMap<>();
@@ -54,16 +81,20 @@ class KeyTest {
 
         testKey.setWholeKeySet(map1);
 
-        assertEquals(3, testKey.getKeyMap().size());
+        assertEquals(3, testKey.keySize());
         assertEquals('y', testKey.getValue('x'));
         assertEquals('z', testKey.getValue('y'));
         assertEquals('x', testKey.getValue('z'));
+
+        assertEquals('x', testKey.getKey('y'));
+        assertEquals('y', testKey.getKey('z'));
+        assertEquals('z', testKey.getKey('x'));
     }
 
     @Test
     // setting whole keymap when keymap is not empty
     public void testSetWholKeyMapNonEmpty() {
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         HashMap<Character, Character> map1 = new HashMap<>();
@@ -73,10 +104,14 @@ class KeyTest {
 
         testKey.setWholeKeySet(map1);
 
-        assertEquals(3, testKey.getKeyMap().size());
+        assertEquals(3, testKey.keySize());
         assertEquals('y', testKey.getValue('x'));
         assertEquals('z', testKey.getValue('y'));
         assertEquals('x', testKey.getValue('z'));
+
+        assertEquals('x', testKey.getKey('y'));
+        assertEquals('y', testKey.getKey('z'));
+        assertEquals('z', testKey.getKey('x'));
     }
 
     @Test
@@ -85,15 +120,16 @@ class KeyTest {
         HashMap<Character,Character> testMap = new HashMap<>();
         testKey.setWholeKeySet(testMap);
 
-        assertEquals(0, testKey.getKeyMap().size());
+        assertEquals(0, testKey.keySize());
 
         assertTrue(testKey.addKeyValue('a', 'b'));
-        assertEquals(1, testKey.getKeyMap().size());
-        assertEquals('b', testKey.getValue('a'));
+        assertEquals(1, testKey.keySize());
 
+        assertEquals('b', testKey.getValue('a'));
+        assertEquals('a', testKey.getKey('b'));
 
         assertTrue(testKey.addKeyValue('c', 'd'));
-        assertEquals(2, testKey.getKeyMap().size());
+        assertEquals(2, testKey.keySize());
         assertEquals('b', testKey.getValue('a'));
         assertEquals('d', testKey.getValue('c'));
     }
@@ -101,17 +137,17 @@ class KeyTest {
     @Test
     // keymap is not empty, key is there
     public void testAddKeyValueNonEmptyNonThere() {
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         testKey.addKeyValue('x', 'y');
-        assertEquals(6, testKey.getKeyMap().size());
+        assertEquals(6, testKey.keySize());
         assertEquals('y', testKey.getValue('x'));
 
         checkSetupMapElements();
 
         assertTrue(testKey.addKeyValue('y', 'z'));
-        assertEquals(7, testKey.getKeyMap().size());
+        assertEquals(7, testKey.keySize());
         assertEquals('y', testKey.getValue('x'));
         assertEquals('z', testKey.getValue('y'));
 
@@ -122,11 +158,11 @@ class KeyTest {
     @Test
     // keymap is not empty, key is not there
     public void testAddKeyValueNonEmptyThere() {
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertFalse(testKey.addKeyValue('a', 'b'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
@@ -136,26 +172,26 @@ class KeyTest {
         HashMap<Character,Character> testMap = new HashMap<>();
         testKey.setWholeKeySet(testMap);
 
-        assertEquals(0, testKey.getKeyMap().size());
+        assertEquals(0, testKey.keySize());
         assertFalse(testKey.removeKeyValue('a'));
-        assertEquals(0, testKey.getKeyMap().size());
+        assertEquals(0, testKey.keySize());
     }
 
     @Test
     // keymap is not empty, key is there
     public void testRemoveKeyValueNonEmptyThere() {
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertTrue(testKey.removeKeyValue('a'));
-        assertEquals(4, testKey.getKeyMap().size());
+        assertEquals(4, testKey.keySize());
         assertEquals('c', testKey.getValue('b'));
         assertEquals('d', testKey.getValue('c'));
         assertEquals('e', testKey.getValue('d'));
         assertEquals('f', testKey.getValue('e'));
 
         assertTrue(testKey.removeKeyValue('d'));
-        assertEquals(3, testKey.getKeyMap().size());
+        assertEquals(3, testKey.keySize());
         assertEquals('c', testKey.getValue('b'));
         assertEquals('d', testKey.getValue('c'));
         assertEquals('f', testKey.getValue('e'));
@@ -164,22 +200,22 @@ class KeyTest {
     @Test
     // keymap is empty, key is not there
     public void testRemoveKeyValueNonEmptyNonThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertFalse(testKey.removeKeyValue('h'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     //key is there
     public void testReplaceValueThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertTrue(testKey.replaceValue('c', 'x'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         assertEquals('b', testKey.getValue('a'));
         assertEquals('c', testKey.getValue('b'));
 
@@ -192,52 +228,52 @@ class KeyTest {
     @Test
     //key is not there
     public void testReplaceValueNotThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertFalse(testKey.replaceValue('y', 'x'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // key is not in map
     public void testAddKeyToSureNotThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertFalse(testKey.addKeyToSure('x'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // key is in map and not in sureList
     public void testAddKeyToSureThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertTrue(testKey.addKeyToSure('b'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // key is in map and in sureList
     public void testAddKeyToSureInList(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
         assertTrue(testKey.addKeyToSure('b'));
 
         assertFalse(testKey.addKeyToSure('b'));
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // value is in sure list
     public void testRemoveKeyFromSureListThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
         testKey.addKeyToSure('b');
         testKey.addKeyToSure('d');
@@ -245,14 +281,14 @@ class KeyTest {
         assertTrue(testKey.removeKeyFromSure('d'));
         assertTrue(testKey.removeKeyFromSure('b'));
 
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // value is not in sure list
     public void testRemoveKeyFromSureListNotThere(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
         testKey.addKeyToSure('b');
         testKey.addKeyToSure('d');
@@ -260,35 +296,103 @@ class KeyTest {
         assertFalse(testKey.removeKeyFromSure('a'));
         assertFalse(testKey.removeKeyFromSure('e'));
 
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // sureList is empty
     public void testClearAllButSureEmpty(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
 
         assertFalse(testKey.clearAllButSure());
 
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
     }
 
     @Test
     // sureList is not empty
     public void testClearAllButSureNonEmpty(){
-        assertEquals(5, testKey.getKeyMap().size());
+        assertEquals(map.size(), testKey.keySize());
         checkSetupMapElements();
         testKey.addKeyToSure('a');
         testKey.addKeyToSure('e');
 
         assertTrue(testKey.clearAllButSure());
 
-        assertEquals(2, testKey.getKeyMap().size());
+        assertEquals(2, testKey.keySize());
         assertEquals('b', testKey.getValue('a'));
         assertEquals('f', testKey.getValue('e'));
+    }
+
+    @Test
+    // key is empty
+    public void testContainsKeyEmpty(){
+        Key k = makeEmptyKey();
+
+        assertFalse(k.containsKey('g'));
+    }
+
+    @Test
+    // key is not empty, searched key is there
+    public void testContainsKeyThere(){
+        assertTrue(testKey.containsKey('a'));
+        assertTrue(testKey.containsKey('d'));
+    }
+
+    @Test
+    // key is not empty, serached key is not there
+    public void testContainsKeyNotThere(){
+        assertFalse(testKey.containsKey('x'));
+    }
+
+    @Test
+    // empty
+    public void testContainsValueEmpty(){
+        Key k = makeEmptyKey();
+
+        assertFalse(k.containsValue('a'));
+    }
+
+    @Test
+    // not empty, value is there
+
+    public void testContainsValueThere(){
+        assertTrue(testKey.containsValue('d'));
+        assertTrue(testKey.containsValue('f'));
+    }
+
+    @Test
+    // not empty, value is not there
+
+    public void testContainsValueNotThere(){
+        assertFalse(testKey.containsValue('x'));
+    }
+
+    @Test
+    public void testClearEmpty(){
+        Key k = makeEmptyKey();
+
+        k.clear();
+
+        assertEquals(0, k.keySize());
+    }
+
+    @Test
+    public void testClearNonEmpty(){
+        testKey.clear();
+        assertEquals(0, testKey.keySize());
+    }
+
+    @Test
+    public void testHasKeyForValue(){
+        assertTrue(testKey.hasKeyForValue('c'));
+        assertTrue(testKey.hasKeyForValue('e'));
+
+        assertFalse(testKey.hasKeyForValue('a'));
+        assertFalse(testKey.hasKeyForValue('x'));
     }
 
     private void checkSetupMapElements() {
@@ -297,5 +401,18 @@ class KeyTest {
         assertEquals('d', testKey.getValue('c'));
         assertEquals('e', testKey.getValue('d'));
         assertEquals('f', testKey.getValue('e'));
+
+        assertEquals('a', testKey.getKey('b'));
+        assertEquals('b', testKey.getKey('c'));
+        assertEquals('c', testKey.getKey('d'));
+        assertEquals('d', testKey.getKey('e'));
+        assertEquals('e', testKey.getKey('f'));
+
+    }
+
+    private Key makeEmptyKey() {
+        Key k = new Key();
+        assertEquals(0, k.keySize());
+        return k;
     }
 }

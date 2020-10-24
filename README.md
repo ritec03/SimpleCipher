@@ -1,5 +1,11 @@
 # Substitution Cipher Encoder-Decoder
 
+## TODO
+* add specifications to UI class methods
+* add tests 
+* clean up methods
+* clean up to adhere to OOP
+
 ## Description
 
 Substitution cipher Encoder-Decoder will perform various operations relating
@@ -7,6 +13,19 @@ encoding a message using a substitution cipher, and also tools for decoding
 such a message. A **simple substitution cipher** is a cipher, where each letter is 
 substituted with different letter/symbol and the correspondence between 
 letters and such symbols constitutes a key for the cipher. 
+
+
+TODO:
+ 
+* make simple cipher substitution mode in whic you do not allow keys to map to the same value or vice versa. 
+* add deleting key-value pair
+* add specificaitons to the UI classes
+* add tests 
+* add tests that test branches 
+* write notes on what I noticed when I did not write tests for all branches 
+* eliminate version of prinitng your key
+* think how to make WorkSpace class be more useful - to transport some of implimentation from the UI classes? 
+
 
 I chose to do this program as I find it interesting to learn about ciphers and ways of decoding them. 
 I think that  such program could easily be exapnded to do more interesting things, like adding new 

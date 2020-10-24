@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +11,13 @@ import java.util.Set;
  * this class represent a key with which a text is encoded/decoded using the substitution cipher.
  * This key class only corresponds to a key for the simple substitution cipher, where each character
  * corresponds only to one value.
+ *
+ * The key is represented through two maps - keyMap is the map from keys
+ * to values, and mapKey which is the map from values to keys. Both maps are maintained to have the same
+ * mappings and together constitute a bi-directional mapping with the ability to access keys and values.
+ *
+ * The key also contains a sureList which represents key-value pairs which the user considers to be correct
+ * during decoding, the sure list is represented as a set of keys.
  */
 public class Key {
     private HashMap<Character, Character> keyMap;
@@ -24,11 +32,6 @@ public class Key {
         sureList = new HashSet<>();
     }
 
-    //EFFECTS: returns keymap.
-    public HashMap<Character, Character> getKeyMap() {
-        return keyMap;
-    }
-
     //EFFECTS: returns the value associated with key.
     public Character getValue(Character key) {
         return keyMap.get(key);
@@ -37,6 +40,16 @@ public class Key {
     //EFFECTS: returns key that corresponds to value
     public Character getKey(Character value) {
         return mapKey.get(value);
+    }
+
+    //EFFECTS: returns number of mappings in key (number of key-value pairs)
+    public int keySize() {
+        return keyMap.size();
+    }
+
+    // EFFECTS: returns set of keys in key
+    public Set<Character> getKeySet() {
+        return keyMap.keySet();
     }
 
     //REQUIRES: passed keymap is not empty
@@ -125,25 +138,26 @@ public class Key {
         return true;
     }
 
-    // TODO specify and make tests
+    // EFFECTS: returns true if keyMap contains the specified key.
     public boolean containsKey(Character key) {
         return keyMap.containsKey(key);
     }
 
-    // TODO specify and make tests
+    // EFFECTS: returns true if keyMap contains key-value pair with the given value.
     public boolean containsValue(Character c) {
         return keyMap.containsValue(c);
     }
 
-    // TODO specify and add tests
+    // MODIFIES: this
+    // EFFECTS: clears keyMap and mapKey of all key-value mappings.
     public void clear() {
         keyMap.clear();
         mapKey.clear();
     }
 
-    // TODO specify and add tests
+    //
     public String printKey() {
-        String keyString = new String();
+        String keyString = "";
         Set<Character> keys = keyMap.keySet();
         for (Character c: keys) {
             String kv = c.toString() + "-" + keyMap.get(c).toString() + ", ";
@@ -152,6 +166,7 @@ public class Key {
         return keyString;
     }
 
+    // EFFECTS: returns true if the key mapping contains key for the specified value.
     public boolean hasKeyForValue(Character c) {
         return mapKey.get(c) != null;
     }

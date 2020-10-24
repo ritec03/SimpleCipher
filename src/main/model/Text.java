@@ -10,9 +10,9 @@ import java.util.List;
  * stored is the key used to produce the ciphered/deciphered version that is stored currently.
  */
 public class Text {
-    Key key;
-    ArrayList<Character> text;
-    ArrayList<Character> ciphertext;
+    private Key key;
+    private ArrayList<Character> text;
+    private ArrayList<Character> ciphertext;
 
     // MODIFIES: this
     // EFFECTS: creates a new Text object
@@ -26,12 +26,24 @@ public class Text {
         return key;
     }
 
-    public List<Character> getText() {
-        return text;
+    // EFFECTS: returns the character in text corresponding to index
+    public Character getCharacterInText(int index) {
+        return text.get(index);
     }
 
-    public List<Character> getCiphertext() {
-        return ciphertext;
+    // EFFECTS: returns the character in ciphertext corresponding to index
+    public Character getCharacterInCiphertext(int index) {
+        return ciphertext.get(index);
+    }
+
+    // EFFECTS: returns the size of the text
+    public int textSize() {
+        return text.size();
+    }
+
+    // EFFECTS: returns the size of the ciphertext
+    public int ciphertextSize() {
+        return ciphertext.size();
     }
 
     //MODIFIES: this

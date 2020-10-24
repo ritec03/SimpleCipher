@@ -24,47 +24,44 @@ public class TextTest {
         String s = "A bc Def.";
         text.addText(s);
 
-        assertEquals(9, text.getText().size());
-        assertEquals('a', text.getText().get(0));
-        assertEquals(' ', text.getText().get(1));
-        assertEquals('b', text.getText().get(2));
-        assertEquals('c', text.getText().get(3));
-        assertEquals(' ', text.getText().get(4));
-        assertEquals('d', text.getText().get(5));
-        assertEquals('e', text.getText().get(6));
-        assertEquals('f', text.getText().get(7));
-        assertEquals('.', text.getText().get(8));
+        assertEquals(9, text.textSize());
+        assertEquals('a', text.getCharacterInText(0));
+        assertEquals(' ', text.getCharacterInText(1));
+        assertEquals('b', text.getCharacterInText(2));
+        assertEquals('c', text.getCharacterInText(3));
+        assertEquals(' ', text.getCharacterInText(4));
+        assertEquals('d', text.getCharacterInText(5));
+        assertEquals('e', text.getCharacterInText(6));
+        assertEquals('f', text.getCharacterInText(7));
+        assertEquals('.', text.getCharacterInText(8));
     }
 
     @Test
     public void testMakeKeyMapTemplateOneSymbol() {
         String s = "aaa a aa";
         text.addText(s);
-        text.getKey().getKeyMap();
-
+        
         text.makeKeyTemplate();
 
-        assertEquals(2, text.getKey().getKeyMap().size());
-        assertTrue(text.getKey().getKeyMap().containsKey('a'));
-        assertTrue(text.getKey().getKeyMap().containsKey(' '));
-
+        assertEquals(2, text.getKey().keySize());
+        assertTrue(text.getKey().containsKey('a'));
+        assertTrue(text.getKey().containsKey(' '));
     }
 
     @Test
     public void testMakeKeyMapTemplateSeveralSymbols() {
         String s = "A bb Daf.";
         text.addText(s);
-        text.getKey().getKeyMap();
 
         text.makeKeyTemplate();
 
-        assertEquals(6, text.getKey().getKeyMap().size());
-        assertTrue(text.getKey().getKeyMap().containsKey('a'));
-        assertTrue(text.getKey().getKeyMap().containsKey('b'));
-        assertTrue(text.getKey().getKeyMap().containsKey('d'));
-        assertTrue(text.getKey().getKeyMap().containsKey('f'));
-        assertTrue(text.getKey().getKeyMap().containsKey('.'));
-        assertTrue(text.getKey().getKeyMap().containsKey(' '));
+        assertEquals(6, text.getKey().keySize());
+        assertTrue(text.getKey().containsKey('a'));
+        assertTrue(text.getKey().containsKey('b'));
+        assertTrue(text.getKey().containsKey('d'));
+        assertTrue(text.getKey().containsKey('f'));
+        assertTrue(text.getKey().containsKey('.'));
+        assertTrue(text.getKey().containsKey(' '));
     }
 
     @Test
@@ -80,14 +77,14 @@ public class TextTest {
 
         text.encryptText();
 
-        assertEquals(7, text.getCiphertext().size());
-        assertEquals('1', text.getCiphertext().get(0));
-        assertEquals('-', text.getCiphertext().get(1));
-        assertEquals('2', text.getCiphertext().get(2));
-        assertEquals('3', text.getCiphertext().get(3));
-        assertEquals('-', text.getCiphertext().get(4));
-        assertEquals('4', text.getCiphertext().get(5));
-        assertEquals('.', text.getCiphertext().get(6));
+        assertEquals(7, text.ciphertextSize());
+        assertEquals('1', text.getCharacterInCiphertext(0));
+        assertEquals('-', text.getCharacterInCiphertext(1));
+        assertEquals('2', text.getCharacterInCiphertext(2));
+        assertEquals('3', text.getCharacterInCiphertext(3));
+        assertEquals('-', text.getCharacterInCiphertext(4));
+        assertEquals('4', text.getCharacterInCiphertext(5));
+        assertEquals('.', text.getCharacterInCiphertext(6));
     }
 
     @Test
@@ -95,16 +92,16 @@ public class TextTest {
         String s = "A bc Def.";
         text.addCiphertext(s);
 
-        assertEquals(9, text.getCiphertext().size());
-        assertEquals('a', text.getCiphertext().get(0));
-        assertEquals(' ', text.getCiphertext().get(1));
-        assertEquals('b', text.getCiphertext().get(2));
-        assertEquals('c', text.getCiphertext().get(3));
-        assertEquals(' ', text.getCiphertext().get(4));
-        assertEquals('d', text.getCiphertext().get(5));
-        assertEquals('e', text.getCiphertext().get(6));
-        assertEquals('f', text.getCiphertext().get(7));
-        assertEquals('.', text.getCiphertext().get(8));
+        assertEquals(9, text.ciphertextSize());
+        assertEquals('a', text.getCharacterInCiphertext(0));
+        assertEquals(' ', text.getCharacterInCiphertext(1));
+        assertEquals('b', text.getCharacterInCiphertext(2));
+        assertEquals('c', text.getCharacterInCiphertext(3));
+        assertEquals(' ', text.getCharacterInCiphertext(4));
+        assertEquals('d', text.getCharacterInCiphertext(5));
+        assertEquals('e', text.getCharacterInCiphertext(6));
+        assertEquals('f', text.getCharacterInCiphertext(7));
+        assertEquals('.', text.getCharacterInCiphertext(8));
     }
 
     @Test
@@ -124,26 +121,25 @@ public class TextTest {
 
         text.decryptCiphertext();
 
-        assertEquals('1', text.getText().get(0));
-        assertEquals('-', text.getText().get(1));
-        assertEquals('4', text.getText().get(2));
-        assertEquals('1', text.getText().get(3));
-        assertEquals('5', text.getText().get(4));
-        assertEquals('-', text.getText().get(5));
-        assertEquals('2', text.getText().get(6));
-        assertEquals('3', text.getText().get(7));
-        assertEquals('4', text.getText().get(8));
+        assertEquals('1', text.getCharacterInText(0));
+        assertEquals('-', text.getCharacterInText(1));
+        assertEquals('4', text.getCharacterInText(2));
+        assertEquals('1', text.getCharacterInText(3));
+        assertEquals('5', text.getCharacterInText(4));
+        assertEquals('-', text.getCharacterInText(5));
+        assertEquals('2', text.getCharacterInText(6));
+        assertEquals('3', text.getCharacterInText(7));
+        assertEquals('4', text.getCharacterInText(8));
 
-        assertEquals('a', text.getCiphertext().get(0));
-        assertEquals(' ', text.getCiphertext().get(1));
-        assertEquals('d', text.getCiphertext().get(2));
-        assertEquals('a', text.getCiphertext().get(3));
-        assertEquals('e', text.getCiphertext().get(4));
-        assertEquals(' ', text.getCiphertext().get(5));
-        assertEquals('b', text.getCiphertext().get(6));
-        assertEquals('c', text.getCiphertext().get(7));
-        assertEquals('d', text.getCiphertext().get(8));
-
+        assertEquals('a', text.getCharacterInCiphertext(0));
+        assertEquals(' ', text.getCharacterInCiphertext(1));
+        assertEquals('d', text.getCharacterInCiphertext(2));
+        assertEquals('a', text.getCharacterInCiphertext(3));
+        assertEquals('e', text.getCharacterInCiphertext(4));
+        assertEquals(' ', text.getCharacterInCiphertext(5));
+        assertEquals('b', text.getCharacterInCiphertext(6));
+        assertEquals('c', text.getCharacterInCiphertext(7));
+        assertEquals('d', text.getCharacterInCiphertext(8));
     }
 
 }

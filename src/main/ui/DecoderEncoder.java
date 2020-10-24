@@ -119,7 +119,7 @@ public class DecoderEncoder {
                 + "\n Type '6' to print current key.");
     }
 
-    
+
     private void actOnInput(String input) {
         if (input.equals("1")) {
             addValueKey();
@@ -138,7 +138,7 @@ public class DecoderEncoder {
             getSavedKey();
             workWithCiphertext();
         } else if (input.equals("6")) {
-            ws.getText().getKey().printKey();
+            System.out.println(ws.getText().getKey().printKey());
             workWithCiphertext();
         } else {
             System.out.println("Sorry, I did not understand you, please try again.");

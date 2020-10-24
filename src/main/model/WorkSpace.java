@@ -56,7 +56,7 @@ public class WorkSpace {
     public void addKeySetToSaved(Key key) {
         HashMap<Character,Character> savingMap = new HashMap<>();
         if (text.getKey() != null) {
-            Set<Character> keys = text.getKey().getKeyMap().keySet();
+            Set<Character> keys = text.getKey().getKeySet();
             for (Character c: keys) {
                 savingMap.put(c, text.getKey().getValue(c));
             }
