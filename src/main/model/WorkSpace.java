@@ -54,16 +54,14 @@ public class WorkSpace {
     //MODIFIES: this
     //EFFECTS: adds key to savedKeys
     public void addKeySetToSaved(Key key) {
-        HashMap<Character,Character> savingMap = new HashMap<>();
-        if (text.getKey() != null) {
-            Set<Character> keys = text.getKey().getKeySet();
-            for (Character c: keys) {
-                savingMap.put(c, text.getKey().getValue(c));
-            }
-            Key savingKey = new Key();
-            savingKey.setWholeKeySet(savingMap);
-            savedKeys.add(savingKey);
+        HashMap<Character, Character> savingMap = new HashMap<>();
+        Set<Character> keys = text.getKey().getKeySet();
+        for (Character c : keys) {
+            savingMap.put(c, text.getKey().getValue(c));
         }
+        Key savingKey = new Key();
+        savingKey.setWholeKeySet(savingMap);
+        savedKeys.add(savingKey);
     }
 
     //MODIFIES: this
@@ -104,7 +102,4 @@ public class WorkSpace {
         }
         this.key = key;
     }
-
-
-
 }

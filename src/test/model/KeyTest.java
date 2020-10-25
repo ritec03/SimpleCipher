@@ -395,6 +395,21 @@ class KeyTest {
         assertFalse(testKey.hasKeyForValue('x'));
     }
 
+    @Test
+    public void testPrintKey() {
+//        testKey = new Key();
+//        map = new HashMap<>();
+//        map.put('a', 'b');
+//        map.put('b', 'c');
+//        map.put('c', 'd');
+//        map.put('d', 'e');
+//        map.put('e', 'f');
+
+        String printedKey = "a-b, b-c, c-d, d-e, e-f, ";
+
+        assertEquals(printedKey, testKey.printKey());
+    }
+
     private void checkSetupMapElements() {
         assertEquals('b', testKey.getValue('a'));
         assertEquals('c', testKey.getValue('b'));

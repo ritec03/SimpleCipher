@@ -64,8 +64,17 @@ public class WorkSpaceTest {
     // when savedKeys is NOT empty
     public void testAddKeyToSavedNonEmpty(){
         ws.setText(text);
+        ws.getText().setKeyMap(key1);
         ws.addKeySetToSaved(key1);
         assertEquals(1, ws.getSavedKeys().size());
+        Key k = ws.getSavedKeys().get(0);
+        assertEquals(5, k.keySize());
+        assertEquals('a', k.getKey('1'));
+        assertEquals('b', k.getKey('2'));
+        assertEquals('c', k.getKey('3'));
+        assertEquals('d', k.getKey('4'));
+        assertEquals('e', k.getKey('5'));
+
 
         ws.addKeySetToSaved(key2);
         assertEquals(2, ws.getSavedKeys().size());
@@ -133,6 +142,12 @@ public class WorkSpaceTest {
         assertNull(ws.getText());
         ws.setText(text);
         assertEquals(text, ws.getText());
+        assertNull(ws.getPreviousText());
+
+        Text newText = new Text();
+        ws.setText(newText);
+        assertEquals(newText, ws.getText());
+        assertEquals(text, ws.getPreviousText());
     }
 
     @Test
@@ -140,6 +155,11 @@ public class WorkSpaceTest {
         assertNull(ws.getKey());
         ws.setKey(key1);
         assertEquals(key1, ws.getKey());
+
+        Key newKey = new Key();
+        ws.setKey(newKey);
+        assertEquals(newKey, ws.getKey());
+        assertEquals(key1, ws.getPreviousKey());
     }
 
 }

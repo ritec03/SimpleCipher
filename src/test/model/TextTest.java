@@ -66,7 +66,7 @@ public class TextTest {
 
     @Test
     public void testEncryptTextNoSpaces() {
-        text.addText("A bc d.");
+        text.addText("A bc d.H");
 
         text.makeKeyTemplate();
         text.getKey().replaceValue('a', '1');
@@ -77,7 +77,7 @@ public class TextTest {
 
         text.encryptText();
 
-        assertEquals(7, text.ciphertextSize());
+        assertEquals(8, text.ciphertextSize());
         assertEquals('1', text.getCharacterInCiphertext(0));
         assertEquals('-', text.getCharacterInCiphertext(1));
         assertEquals('2', text.getCharacterInCiphertext(2));
@@ -85,6 +85,8 @@ public class TextTest {
         assertEquals('-', text.getCharacterInCiphertext(4));
         assertEquals('4', text.getCharacterInCiphertext(5));
         assertEquals('.', text.getCharacterInCiphertext(6));
+        assertEquals('-', text.getCharacterInCiphertext(7));
+
     }
 
     @Test
@@ -116,11 +118,12 @@ public class TextTest {
         testKey.setWholeKeySet(map);
         text.setKeyMap(testKey);
 
-        String s = "A dae bcd";
+        String s = "A dae bcd.H";
         text.addCiphertext(s);
 
         text.decryptCiphertext();
 
+        assertEquals(11, text.textSize());
         assertEquals('1', text.getCharacterInText(0));
         assertEquals('-', text.getCharacterInText(1));
         assertEquals('4', text.getCharacterInText(2));
@@ -130,16 +133,26 @@ public class TextTest {
         assertEquals('2', text.getCharacterInText(6));
         assertEquals('3', text.getCharacterInText(7));
         assertEquals('4', text.getCharacterInText(8));
+        assertEquals('-', text.getCharacterInText(9));
+        assertEquals('-', text.getCharacterInText(10));
 
-        assertEquals('a', text.getCharacterInCiphertext(0));
-        assertEquals(' ', text.getCharacterInCiphertext(1));
-        assertEquals('d', text.getCharacterInCiphertext(2));
-        assertEquals('a', text.getCharacterInCiphertext(3));
-        assertEquals('e', text.getCharacterInCiphertext(4));
-        assertEquals(' ', text.getCharacterInCiphertext(5));
-        assertEquals('b', text.getCharacterInCiphertext(6));
-        assertEquals('c', text.getCharacterInCiphertext(7));
-        assertEquals('d', text.getCharacterInCiphertext(8));
     }
 
+    @Test
+    public void testPrintText() {
+        String s = "A bc Def.";
+        String l = s.toLowerCase();
+        text.addText(s);
+
+        assertEquals(l, text.printText());
+    }
+
+    @Test
+    public void testPrintCiphertext() {
+        String s = "A bc Def.";
+        String l = s.toLowerCase();
+        text.addCiphertext(s);
+
+        assertEquals(l, text.printCiphertext());
+    }
 }
