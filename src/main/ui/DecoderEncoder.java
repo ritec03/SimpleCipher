@@ -5,6 +5,7 @@ import model.Text;
 import model.WorkSpace;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DecoderEncoder {
@@ -12,9 +13,9 @@ public class DecoderEncoder {
     boolean programOn;
     Scanner scanner;
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: constructs DecoderEncoder object and starts console interface by displaying main menu
+    // and acting on user input
     public DecoderEncoder() {
         scanner = new Scanner(System.in);
         programOn = true;
@@ -37,9 +38,7 @@ public class DecoderEncoder {
         }
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: prints the main menue options
     private void printMainMenuOptions() {
         System.out.println("Would you like to encode or try to decode a text?");
         System.out.println("Type '1' if you would like to encode a text");
@@ -47,9 +46,7 @@ public class DecoderEncoder {
         System.out.println("Type '3' to quit.");
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: Adds user input as a text to workspace object and envokes options for it through encodeText()
     private void addTextToBeEncoded() {
         String input;
         System.out.println("Please, type text that you want to encode.");
@@ -60,9 +57,7 @@ public class DecoderEncoder {
         encodeText();
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: displays options available for text encoding and acts on the user input for these options
     private void encodeText() {
         instructionForTextEncoding();
         String input = scanner.nextLine();
@@ -77,10 +72,8 @@ public class DecoderEncoder {
         }
     }
 
-
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: Prints input text and ciphertext produced from the input text and the key used for
+    // encoding options for encoding text menu
     private void instructionForTextEncoding() {
         System.out.println("Your text is: ");
         System.out.println(ws.getText().printText());
@@ -93,24 +86,20 @@ public class DecoderEncoder {
                 + "\n Type '2' to quit.");
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: adds Key-Value to Text in Workspace with first user input being key and second
+    // being value.
     private void addKeyValue() {
-        System.out.println("Please, type character, which you want to encode.");
-        String input = scanner.nextLine();
-        // the following line uses the method that I found in the following URL:
-        // https://www.geeksforgeeks.org/array-get-method-in-java/
-        Character key = (Character)Array.get(input.toCharArray(), 0);
-        System.out.println("Please, add character you want to encode it with.");
-        String input2 = scanner.nextLine();
-        Character value = (Character) Array.get(input2.toCharArray(), 0);
-        ws.getText().getKey().addKeyValue(key, value);
+        ArrayList<Character> list = getCharacters("Please, type character, which you want to encode.",
+                "Please, type character with which you want to encode it with.");
+        Character keyInput = list.get(0);
+        Character valueInput = list.get(1);
+        ws.getText().getKey().addKeyValue(keyInput, valueInput);
+        ws.setKey(ws.getText().getKey());
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: sets input as ciphertext in Text and sets this Text in Workspace, then leads to
+    // decoding options through decodeCiphertext();
     private void addCiphertextToBeDecoded() {
         String input;
         System.out.println("Please, type text that you want to decode.");
@@ -121,9 +110,7 @@ public class DecoderEncoder {
         decodeCiphertext();
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: prints options for decoding and acts on the user input on these options
     private void decodeCiphertext() {
         instructionsForTextDecoding();
         String input = scanner.nextLine();
@@ -132,7 +119,8 @@ public class DecoderEncoder {
 
     // REQUIRES:
     // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: prints ciphertext and its decrypted version and the current key used for
+    // decryption, then prints options for decoding
     private void instructionsForTextDecoding() {
         System.out.println("Your ciphertext is: " + ws.getText().printCiphertext());
         System.out.println("Your decrypted text is: ");
@@ -141,32 +129,24 @@ public class DecoderEncoder {
         System.out.println("Your key is: " + ws.getText().getKey().printKey());
         System.out.println("Please, select the following options:"
                 + "\n Type '1' to add key-value pair"
-                + "\n Type '3' to save the current key to saved"
-                + "\n Type '4' to clear the current key"
-                + "\n Type '5' if you want to switch to a saved key"
-                + "\n Type '6' to print current key.");
+                + "\n Type '2' to save the current key to saved"
+                + "\n Type '3' to clear the current key"
+                + "\n Type '4' if you want to switch to a saved key");
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: acts on user input for ciphertext decoding
     private void actOnInputForDecodingOptions(String input) {
         if (input.equals("1")) {
             addValueKey();
             decodeCiphertext();
-        }  else if (input.equals("2")) {
-            ws.getText().encryptText();
-            System.out.println(ws.getText().printText());
-        } else if (input.equals("3")) {
+        } else if (input.equals("2")) {
             addKeyToSaved();
-        } else if (input.equals("4")) {
+        } else if (input.equals("3")) {
             clearCurrentKey();
             decodeCiphertext();
-        } else if (input.equals("5")) {
+        } else if (input.equals("4")) {
             getSavedKey();
-            decodeCiphertext();
-        } else if (input.equals("6")) {
-            System.out.println(ws.getText().getKey().printKey());
             decodeCiphertext();
         } else {
             System.out.println("Sorry, I did not understand you, please try again.");
@@ -174,25 +154,20 @@ public class DecoderEncoder {
         }
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: adds key-value pair to Text in Workspace with first user input being value,
+    // and second input being key.
     private void addValueKey() {
-        System.out.println("Please, type character, which you want to decode.");
-        String input = scanner.nextLine();
-        // the following line uses the method that I found in the following URL:
-        // https://www.geeksforgeeks.org/array-get-method-in-java/
-        Character value = (Character)Array.get(input.toCharArray(), 0);
-        System.out.println("Please, add character you think this character means.");
-        String input2 = scanner.nextLine();
-        Character key = (Character) Array.get(input2.toCharArray(), 0);
-        ws.getText().getKey().addKeyValue(key, value);
+        ArrayList<Character> list = getCharacters("Please, type character, which you want to decode.",
+                "Please, type character, you think the character stands for");
+        Character keyInput = list.get(1);
+        Character valueInput = list.get(0);
+
+        ws.getText().getKey().addKeyValue(keyInput, valueInput);
         ws.setKey(ws.getText().getKey());
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: Workspace
+    // EFFECTS: adds the current key to saved keys in workspace.
     private void addKeyToSaved() {
         ws.addKeySetToSaved(ws.getText().getKey());
         decodeCiphertext();
@@ -204,9 +179,9 @@ public class DecoderEncoder {
         ws.setKey(ws.getText().getKey());
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: prints menu prompting the user to choose one of saved keys and sets the chosen key as
+    // current key in workspace. If there are no saved keys, indicates that to the user.
     private void getSavedKey() {
         if (ws.getSavedKeys().size() == 0) {
             System.out.println("Sorry, you do not have saved keys.");
@@ -223,5 +198,24 @@ public class DecoderEncoder {
             ws.getText().setKeyMap(newKey);
             System.out.println("Your new key is: " + ws.getText().getKey().printKey());
         }
+    }
+
+
+    // EFFECTS: retrieves two string inputs from the user sequentially, prinitng a message before
+    // each retrieval, converts the inputs to Character and outputs the two inputs
+    // as ArrayList<Character>.
+    private ArrayList<Character> getCharacters(String messageOne, String messageTwo) {
+        System.out.println(messageOne);
+        String input = scanner.nextLine();
+        // the following line uses the method that I found in the following URL:
+        // https://www.geeksforgeeks.org/array-get-method-in-java/
+        Character key = (Character) Array.get(input.toCharArray(), 0);
+        System.out.println(messageTwo);
+        String input2 = scanner.nextLine();
+        Character value = (Character) Array.get(input2.toCharArray(), 0);
+        ArrayList<Character> list = new ArrayList<>();
+        list.add(key);
+        list.add(value);
+        return list;
     }
 }

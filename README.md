@@ -15,18 +15,6 @@ substituted with different letter/symbol and the correspondence between
 letters and such symbols constitutes a key for the cipher. 
 
 
-TODO:
- 
-* make simple cipher substitution mode in whic you do not allow keys to map to the same value or vice versa. 
-* add deleting key-value pair
-* add specificaitons to the UI classes
-* add tests 
-* add tests that test branches 
-* write notes on what I noticed when I did not write tests for all branches 
-* eliminate version of prinitng your key
-* think how to make WorkSpace class be more useful - to transport some of implimentation from the UI classes? 
-
-
 I chose to do this program as I find it interesting to learn about ciphers and ways of decoding them. 
 I think that  such program could easily be exapnded to do more interesting things, like adding new 
 ciphers to crack, and thus could constitute a good personal project. 
@@ -66,4 +54,12 @@ and be able to come back to the previous maps if I need to.
 As a user, I want to see the text that I am encoding/decoding on the console at all times, so that I am 
 aware of the progress I am making.
 
+## Additional user stories for phase 2: 
+
+#### Story 5: 
+As a user, I want to save the workspace containing the encoded/decoded text as well as keys that I am using 
+and have tried to a file. 
+
+#### Story 6: 
+As a user, I want to be able to reload the workspace I saved the last time from a file. 
 
