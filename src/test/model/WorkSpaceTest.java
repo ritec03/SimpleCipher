@@ -80,86 +80,86 @@ public class WorkSpaceTest {
         assertEquals(2, ws.getSavedKeys().size());
     }
 
-    @Test
-    public void testAddTextToSavedEmpty(){
-        assertEquals(0, ws.getSavedTexts().size());
+//    @Test
+//    public void testAddTextToSavedEmpty(){
+//        assertEquals(0, ws.getSavedTexts().size());
+//
+//        ws.addTextToSaved(text);
+//        assertEquals(1, ws.getSavedTexts().size());
+//        assertTrue(ws.getSavedTexts().contains(text));
+//    }
 
-        ws.addTextToSaved(text);
-        assertEquals(1, ws.getSavedTexts().size());
-        assertTrue(ws.getSavedTexts().contains(text));
-    }
+//    @Test
+//    public void testAddTextToSavedNonEmpty(){
+//        Text t1 = new Text();
+//        Text t2 = new Text();
+//        ws.addTextToSaved(t1);
+//        ws.addTextToSaved(t2);
+//        assertEquals(2, ws.getSavedTexts().size());
+//
+//        ws.addTextToSaved(text);
+//        assertEquals(3, ws.getSavedTexts().size());
+//        assertTrue(ws.getSavedTexts().contains(text));
+//    }
+//
+//    @Test
+//    public void testSetPreviousKeyEmpty(){
+//        assertEquals(0, ws.getPreviousKey().keySize());
+//
+//        ws.setPreviousKey(key1);
+//        assertEquals(key1, ws.getPreviousKey());
+//    }
 
-    @Test
-    public void testAddTextToSavedNonEmpty(){
-        Text t1 = new Text();
-        Text t2 = new Text();
-        ws.addTextToSaved(t1);
-        ws.addTextToSaved(t2);
-        assertEquals(2, ws.getSavedTexts().size());
-
-        ws.addTextToSaved(text);
-        assertEquals(3, ws.getSavedTexts().size());
-        assertTrue(ws.getSavedTexts().contains(text));
-    }
-
-    @Test
-    public void testSetPreviousKeyEmpty(){
-        assertNull(ws.getPreviousKey());
-
-        ws.setPreviousKey(key1);
-        assertEquals(key1, ws.getPreviousKey());
-    }
-
-    @Test
-    public void testSetPreviousKeyNonEmpty(){
-        ws.setPreviousKey(key1);
-        assertEquals(key1, ws.getPreviousKey());
-
-        ws.setPreviousKey(key2);
-        assertEquals(key2, ws.getPreviousKey());
-    }
-
-    @Test
-    public void testSetPreviousTextEmpty(){
-        assertNull(ws.getPreviousText());
-
-        ws.setPreviousText(text);
-        assertEquals(text, ws.getPreviousText());
-    }
-
-    @Test
-    public void testSetPreviousTextNonEmpty(){
-        ws.setPreviousText(text);
-        assertEquals(text, ws.getPreviousText());
-
-        Text t1 = new Text();
-        ws.setPreviousText(t1);
-        assertEquals(t1, ws.getPreviousText());
-    }
+//    @Test
+//    public void testSetPreviousKeyNonEmpty(){
+//        ws.setPreviousKey(key1);
+//        assertEquals(key1, ws.getPreviousKey());
+//
+//        ws.setPreviousKey(key2);
+//        assertEquals(key2, ws.getPreviousKey());
+//    }
+//
+//    @Test
+//    public void testSetPreviousTextEmpty(){
+//        assertEquals(0, ws.getPreviousText().textSize());
+//
+//        ws.setPreviousText(text);
+//        assertEquals(text, ws.getPreviousText());
+//    }
+//
+//    @Test
+//    public void testSetPreviousTextNonEmpty(){
+//        ws.setPreviousText(text);
+//        assertEquals(text, ws.getPreviousText());
+//
+//        Text t1 = new Text();
+//        ws.setPreviousText(t1);
+//        assertEquals(t1, ws.getPreviousText());
+//    }
 
     @Test
     public void testSetText(){
-        assertNull(ws.getText());
+        assertEquals(0, ws.getText().textSize());
         ws.setText(text);
         assertEquals(text, ws.getText());
-        assertNull(ws.getPreviousText());
+//        assertNull(ws.getPreviousText());
 
         Text newText = new Text();
         ws.setText(newText);
         assertEquals(newText, ws.getText());
-        assertEquals(text, ws.getPreviousText());
+//        assertEquals(text, ws.getPreviousText());
     }
 
     @Test
     public void testSetKey(){
-        assertNull(ws.getKey());
+        assertEquals(0, ws.getKey().keySize());
         ws.setKey(key1);
         assertEquals(key1, ws.getKey());
 
         Key newKey = new Key();
         ws.setKey(newKey);
         assertEquals(newKey, ws.getKey());
-        assertEquals(key1, ws.getPreviousKey());
+//        assertEquals(key1, ws.getPreviousKey());
     }
 
 }

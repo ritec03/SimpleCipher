@@ -1,17 +1,18 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.awt.image.AreaAveragingScaleFilter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * This class represents the text and it contains the text in its unciphered or ciphered
  * state or both. Text has two forms - the ciphered and unciphered. The key set that is
  * stored is the key used to produce the ciphered/deciphered version that is stored currently.
  */
-public class Text {
+public class Text implements Writable {
     private Key key;
     private ArrayList<Character> text;
     private ArrayList<Character> ciphertext;
@@ -75,10 +76,24 @@ public class Text {
         storeStringAsArray(textAsString, text);
     }
 
+    // todo
+    //MODIFIES: this
+    //EFFECTS: stores array list of characters in the text field
+    public void addText(ArrayList<Character> c) {
+        this.text = c;
+    }
+
     //MODIFIES: this
     //EFFECTS: stores ciphertext as ArrayList<Character> in ciphertext field.
     public void addCiphertext(String textAsString) {
         storeStringAsArray(textAsString, ciphertext);
+    }
+
+    // todo
+    //MODIFIES: this
+    //EFFECTS: stores array list of characters in the text field
+    public void addCiphertext(ArrayList<Character> c) {
+        this.ciphertext = c;
     }
 
     //MODIFIES: this
@@ -147,5 +162,15 @@ public class Text {
 
     public String printCiphertext() {
         return getStringFromList(this.ciphertext);
+    }
+
+    @Override
+    // EFFECTS: converts Text instane to a JSONObject and returns it
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("key", key.toJson());
+        json.put("text", text);
+        json.put("ciphertext", ciphertext);
+        return json;
     }
 }

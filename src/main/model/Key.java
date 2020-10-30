@@ -1,6 +1,9 @@
 package model;
 
-import java.util.Collection;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,17 +22,19 @@ import java.util.Set;
  * The key also contains a sureList which represents key-value pairs which the user considers to be correct
  * during decoding, the sure list is represented as a set of keys.
  */
-public class Key {
+public class Key implements Writable {
     private HashMap<Character, Character> keyMap;
     private HashMap<Character, Character> mapKey;
-    private HashSet<Character> sureList;
+//    private HashSet<Character> sureList;
 
     // MODIFIES: this
     // EFFECTS: creates a new Key object
     public Key() {
         keyMap = new HashMap<>();
         mapKey = new HashMap<>();
-        sureList = new HashSet<>();
+        // note:since I haven't integrated the functionality related to sureList field into the
+        // program, I am commenting it out along with all the methods and tests using it.
+//        sureList = new HashSet<>();
     }
 
     //EFFECTS: returns the value associated with key.
@@ -106,37 +111,37 @@ public class Key {
     //MODIFIES: this
     //EFFECTS: adds the key to the sureList if the key is not already there and if the key is in keymap
     // and returns true, otherwise returns false.
-    public boolean addKeyToSure(Character key) {
-        if (keyMap.containsKey(key)) {
-            return sureList.add(key);
-        }
-        return false;
-    }
+//    public boolean addKeyToSure(Character key) {
+//        if (keyMap.containsKey(key)) {
+//            return sureList.add(key);
+//        }
+//        return false;
+//    }
 
     //MODIFIES: this
     //EFFECTS: removes value from the sureList if the value is there and returns true, otherwise returns
     //false.
-    public boolean removeKeyFromSure(Character key) {
-        return sureList.remove(key);
-    }
+//    public boolean removeKeyFromSure(Character key) {
+//        return sureList.remove(key);
+//    }
 
     //MODIFIES: this
     //EFFECTS: removes all key value pairs in keymap, which keys are not in sureList, and returns true,
     // if sureList is empty, returns false.
-    public boolean clearAllButSure() {
-        if (sureList.isEmpty()) {
-            return false;
-        }
-        HashMap<Character, Character> newMap = new HashMap<>();
-        for (Character key : sureList) {
-            if (keyMap.containsKey(key)) {
-                Character value = keyMap.get(key);
-                newMap.put(key, value);
-            }
-        }
-        setWholeKeySet(newMap);
-        return true;
-    }
+//    public boolean clearAllButSure() {
+//        if (sureList.isEmpty()) {
+//            return false;
+//        }
+//        HashMap<Character, Character> newMap = new HashMap<>();
+//        for (Character key : sureList) {
+//            if (keyMap.containsKey(key)) {
+//                Character value = keyMap.get(key);
+//                newMap.put(key, value);
+//            }
+//        }
+//        setWholeKeySet(newMap);
+//        return true;
+//    }
 
     // EFFECTS: returns true if keyMap contains the specified key.
     public boolean containsKey(Character key) {
@@ -170,4 +175,40 @@ public class Key {
     public boolean hasKeyForValue(Character c) {
         return mapKey.get(c) != null;
     }
+
+    @Override
+    // EFFECTS: converts Key instance to a JSONObject and returns it
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("keyMap", keyMapToJson());
+        json.put("mapKey", mapKeyToJson());
+//        json.put("sureList", sureListToJson());
+        return json;
+    }
+
+    // EFFECTS: converts keyMap field to JSONObject and returns it
+    private JSONObject keyMapToJson() {
+        JSONObject object = new JSONObject(keyMap);
+        return object;
+    }
+
+    // EFFECTS: converts mapKey field to JSONObject and returns it
+    private JSONObject mapKeyToJson() {
+        JSONObject object = new JSONObject(keyMap);
+        return object;
+    }
+
+//    private JSONArray sureListToJson() {
+//        JSONArray jsonArray = new JSONArray();
+//
+//        for (Character c: sureList) {
+//            JSONObject json = new JSONObject();
+//            json.put("c", c);
+//            jsonArray.put(json);
+//        }
+//
+//        return jsonArray;
+//    }
+
+
 }

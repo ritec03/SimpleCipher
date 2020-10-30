@@ -3,7 +3,12 @@ package ui;
 import model.Key;
 import model.Text;
 import model.WorkSpace;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,6 +17,8 @@ public class DecoderEncoder {
     WorkSpace ws;
     boolean programOn;
     Scanner scanner;
+    JsonWriter writer = new JsonWriter("./data/workspace.json");
+    JsonReader reader = new JsonReader("./data/workspace.json");
 
     // MODIFIES: this
     // EFFECTS: constructs DecoderEncoder object and starts console interface by displaying main menu
@@ -27,9 +34,9 @@ public class DecoderEncoder {
             printMainMenuOptions();
             input = scanner.nextLine();
             if (input.equals("1")) {
-                addTextToBeEncoded();
+                encodeOptions();
             } else if (input.equals("2")) {
-                addCiphertextToBeDecoded();
+                decodeOptions();
             } else if (input.equals("3")) {
                 programOn = false;
             } else {
@@ -43,6 +50,64 @@ public class DecoderEncoder {
         System.out.println("Would you like to encode or try to decode a text?");
         System.out.println("Type '1' if you would like to encode a text");
         System.out.println("Type '2' if you would like to decode a text");
+        System.out.println("Type '3' to quit.");
+    }
+
+    // EFFECTS: prints options for encoding and acts on user input
+    public void encodeOptions() {
+        printEncodeOptions();
+        String input;
+        input = scanner.nextLine();
+        if (input.equals("1")) {
+            try {
+                loadWorkSpace();
+            } catch (IOException e) {
+                System.out.println("Failed to load file!");
+            }
+            encodeText();
+        } else if (input.equals("2")) {
+            addTextToBeEncoded();
+        } else if (input.equals("3")) {
+            programOn = false;
+        } else {
+            System.out.println("Sorry, I did not understand you, please try again.");
+            encodeOptions();
+        }
+    }
+
+    // EFFECTS: prints encode options
+    private void printEncodeOptions() {
+        System.out.println("Type '1' if you would like to load text to be encoded from file");
+        System.out.println("Type '2' if you would like to load a new text");
+        System.out.println("Type '3' to quit.");
+    }
+
+    // EFFECTS: prints decode options and acts on user input
+    public void decodeOptions() {
+        printDecodeOptions();
+        String input;
+        input = scanner.nextLine();
+        if (input.equals("1")) {
+            try {
+                loadWorkSpace();
+            } catch (IOException e) {
+                System.out.println("Failed to load file!");
+            }
+            encodeText();
+        } else if (input.equals("2")) {
+            addCiphertextToBeDecoded();
+        } else if (input.equals("3")) {
+            programOn = false;
+        } else {
+            System.out.println("Sorry, I did not understand you, please try again.");
+            encodeOptions();
+        }
+    }
+
+    // EFFECTS: prints decode options
+    private void printDecodeOptions() {
+        System.out.println("Type '1' if you would like to load text to be decoded from file");
+        System.out.println("Type '2' if you would like to load a new text");
         System.out.println("Type '3' to quit.");
     }
 
@@ -66,11 +131,15 @@ public class DecoderEncoder {
             encodeText();
         } else if (input.equals("2")) {
             programOn = false;
+        } else if (input.equals("3")) {
+            saveFileOption();
+            encodeText();
         } else {
             System.out.println("Sorry, I did not understand you, please try again.");
             encodeText();
         }
     }
+
 
     // EFFECTS: Prints input text and ciphertext produced from the input text and the key used for
     // encoding options for encoding text menu
@@ -83,7 +152,8 @@ public class DecoderEncoder {
         System.out.println("Your key is: " + ws.getText().getKey().printKey());
         System.out.println("Please, select the following options:"
                 + "\n Type '1' to add key-value pair"
-                + "\n Type '2' to quit.");
+                + "\n Type '2' to quit."
+                + "\n Type '3' to save the current workspace to file.");
     }
 
     // EFFECTS: adds Key-Value to Text in Workspace with first user input being key and second
@@ -117,22 +187,6 @@ public class DecoderEncoder {
         actOnInputForDecodingOptions(input);
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS: prints ciphertext and its decrypted version and the current key used for
-    // decryption, then prints options for decoding
-    private void instructionsForTextDecoding() {
-        System.out.println("Your ciphertext is: " + ws.getText().printCiphertext());
-        System.out.println("Your decrypted text is: ");
-        ws.getText().decryptCiphertext();
-        System.out.println(ws.getText().printText());
-        System.out.println("Your key is: " + ws.getText().getKey().printKey());
-        System.out.println("Please, select the following options:"
-                + "\n Type '1' to add key-value pair"
-                + "\n Type '2' to save the current key to saved"
-                + "\n Type '3' to clear the current key"
-                + "\n Type '4' if you want to switch to a saved key");
-    }
 
     // MODIFIES: this
     // EFFECTS: acts on user input for ciphertext decoding
@@ -148,10 +202,29 @@ public class DecoderEncoder {
         } else if (input.equals("4")) {
             getSavedKey();
             decodeCiphertext();
+        } else if (input.equals("5")) {
+            saveFileOption();
+            encodeText();
         } else {
             System.out.println("Sorry, I did not understand you, please try again.");
             decodeCiphertext();
         }
+    }
+
+    // EFFECTS: prints ciphertext and its decrypted version and the current key used for
+    // decryption, then prints options for decoding
+    private void instructionsForTextDecoding() {
+        System.out.println("Your ciphertext is: " + ws.getText().printCiphertext());
+        System.out.println("Your decrypted text is: ");
+        ws.getText().decryptCiphertext();
+        System.out.println(ws.getText().printText());
+        System.out.println("Your key is: " + ws.getText().getKey().printKey());
+        System.out.println("Please, select the following options:"
+                + "\n Type '1' to add key-value pair"
+                + "\n Type '2' to save the current key to saved"
+                + "\n Type '3' to clear the current key"
+                + "\n Type '4' if you want to switch to a saved key"
+                + "\n Type '5' to save the current workspace to file.");
     }
 
     // EFFECTS: adds key-value pair to Text in Workspace with first user input being value,
@@ -174,7 +247,7 @@ public class DecoderEncoder {
     }
 
     private void clearCurrentKey() {
-        ws.setPreviousKey(ws.getKey());
+//        ws.setPreviousKey(ws.getKey());
         ws.getText().getKey().clear();
         ws.setKey(ws.getText().getKey());
     }
@@ -217,5 +290,28 @@ public class DecoderEncoder {
         list.add(key);
         list.add(value);
         return list;
+    }
+
+    // EFFECTS: saves workspace to file, prints message if it was successful
+    // and leads to encodeText() method
+    private void saveFileOption() {
+        try {
+            saveWorkSpace();
+            System.out.println("Work space saved successfully!");
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found!");
+        }
+    }
+
+    // EFFECTS: saves workspace to json file
+    private void saveWorkSpace() throws FileNotFoundException {
+        writer.open();
+        writer.write(ws);
+        writer.close();
+    }
+
+    // EFFECTS: loads work space from json file
+    private void loadWorkSpace() throws IOException {
+        ws = reader.read();
     }
 }

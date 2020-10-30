@@ -236,96 +236,96 @@ class KeyTest {
         checkSetupMapElements();
     }
 
-    @Test
-    // key is not in map
-    public void testAddKeyToSureNotThere(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-
-        assertFalse(testKey.addKeyToSure('x'));
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-    }
-
-    @Test
-    // key is in map and not in sureList
-    public void testAddKeyToSureThere(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-
-        assertTrue(testKey.addKeyToSure('b'));
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-    }
-
-    @Test
-    // key is in map and in sureList
-    public void testAddKeyToSureInList(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-        assertTrue(testKey.addKeyToSure('b'));
-
-        assertFalse(testKey.addKeyToSure('b'));
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-    }
-
-    @Test
-    // value is in sure list
-    public void testRemoveKeyFromSureListThere(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-        testKey.addKeyToSure('b');
-        testKey.addKeyToSure('d');
-
-        assertTrue(testKey.removeKeyFromSure('d'));
-        assertTrue(testKey.removeKeyFromSure('b'));
-
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-    }
-
-    @Test
-    // value is not in sure list
-    public void testRemoveKeyFromSureListNotThere(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-        testKey.addKeyToSure('b');
-        testKey.addKeyToSure('d');
-
-        assertFalse(testKey.removeKeyFromSure('a'));
-        assertFalse(testKey.removeKeyFromSure('e'));
-
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-    }
-
-    @Test
-    // sureList is empty
-    public void testClearAllButSureEmpty(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-
-        assertFalse(testKey.clearAllButSure());
-
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-    }
-
-    @Test
-    // sureList is not empty
-    public void testClearAllButSureNonEmpty(){
-        assertEquals(map.size(), testKey.keySize());
-        checkSetupMapElements();
-        testKey.addKeyToSure('a');
-        testKey.addKeyToSure('e');
-
-        assertTrue(testKey.clearAllButSure());
-
-        assertEquals(2, testKey.keySize());
-        assertEquals('b', testKey.getValue('a'));
-        assertEquals('f', testKey.getValue('e'));
-    }
+//    @Test
+//    // key is not in map
+//    public void testAddKeyToSureNotThere(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//
+//        assertFalse(testKey.addKeyToSure('x'));
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//    }
+//
+//    @Test
+//    // key is in map and not in sureList
+//    public void testAddKeyToSureThere(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//
+//        assertTrue(testKey.addKeyToSure('b'));
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//    }
+//
+//    @Test
+//    // key is in map and in sureList
+//    public void testAddKeyToSureInList(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//        assertTrue(testKey.addKeyToSure('b'));
+//
+//        assertFalse(testKey.addKeyToSure('b'));
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//    }
+//
+//    @Test
+//    // value is in sure list
+//    public void testRemoveKeyFromSureListThere(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//        testKey.addKeyToSure('b');
+//        testKey.addKeyToSure('d');
+//
+//        assertTrue(testKey.removeKeyFromSure('d'));
+//        assertTrue(testKey.removeKeyFromSure('b'));
+//
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//    }
+//
+//    @Test
+//    // value is not in sure list
+//    public void testRemoveKeyFromSureListNotThere(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//        testKey.addKeyToSure('b');
+//        testKey.addKeyToSure('d');
+//
+//        assertFalse(testKey.removeKeyFromSure('a'));
+//        assertFalse(testKey.removeKeyFromSure('e'));
+//
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//    }
+//
+//    @Test
+//    // sureList is empty
+//    public void testClearAllButSureEmpty(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//
+//        assertFalse(testKey.clearAllButSure());
+//
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//    }
+//
+//    @Test
+//    // sureList is not empty
+//    public void testClearAllButSureNonEmpty(){
+//        assertEquals(map.size(), testKey.keySize());
+//        checkSetupMapElements();
+//        testKey.addKeyToSure('a');
+//        testKey.addKeyToSure('e');
+//
+//        assertTrue(testKey.clearAllButSure());
+//
+//        assertEquals(2, testKey.keySize());
+//        assertEquals('b', testKey.getValue('a'));
+//        assertEquals('f', testKey.getValue('e'));
+//    }
 
     @Test
     // key is empty
