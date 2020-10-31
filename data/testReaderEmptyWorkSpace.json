@@ -1,0 +1,28 @@
+{
+    "savedTexts": [],
+    "previousText": {
+        "ciphertext": [],
+        "text": [],
+        "key": {
+            "keyMap": {},
+            "mapKey": {}
+        }
+    },
+    "previousKey": {
+        "keyMap": {},
+        "mapKey": {}
+    },
+    "savedKeys": [],
+    "text": {
+        "ciphertext": [],
+        "text": [],
+        "key": {
+            "keyMap": {},
+            "mapKey": {}
+        }
+    },
+    "key": {
+        "keyMap": {},
+        "mapKey": {}
+    }
+}
