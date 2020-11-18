@@ -40,7 +40,7 @@ public class JsonWriterTest {
     void testWriterEmptyWorkSpace() {
         try {
             WorkSpace ws = new WorkSpace();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkSpace");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkSpace.json");
             writer.open();
             writer.write(ws);
             writer.close();
@@ -100,7 +100,7 @@ public class JsonWriterTest {
             ws.addKeySetToSaved(key1);
             ws.addKeySetToSaved(key2);
             ws.addKeySetToSaved(key3);
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkSpace");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkSpace.json");
 
             writer.open();
             writer.write(ws);

@@ -59,7 +59,9 @@ public class Text implements Writable {
     //EFFECTS: stores textAsString in an ArrayList<Character> (text or cipher text) with blank spaces and
     // punctuation marks  included, all capital letters are converted to lower-case letters. This method
     // overwrites ArrayList<Character> field on input.
-    private void storeStringAsArray(String textAsString, ArrayList<Character> list) {
+    private ArrayList<Character> storeStringAsArray(String textAsString) {
+        // TODO check that this method actually overwrites
+        ArrayList<Character> list = new ArrayList<>();
         char[] arrayText = textAsString.toCharArray();
         for (int n = 0; n < arrayText.length; n++) {
             // the following line uses the method that I found in the following URL:
@@ -68,12 +70,13 @@ public class Text implements Writable {
             c = Character.toLowerCase(c);
             list.add(c);
         }
+        return list;
     }
 
     //MODIFIES: this
     //EFFECTS: stores text as ArrayList<Character> in text field.
     public void addText(String textAsString) {
-        storeStringAsArray(textAsString, text);
+        text = storeStringAsArray(textAsString);
     }
 
     // todo
@@ -86,7 +89,7 @@ public class Text implements Writable {
     //MODIFIES: this
     //EFFECTS: stores ciphertext as ArrayList<Character> in ciphertext field.
     public void addCiphertext(String textAsString) {
-        storeStringAsArray(textAsString, ciphertext);
+        ciphertext = storeStringAsArray(textAsString);
     }
 
     // todo
@@ -98,7 +101,7 @@ public class Text implements Writable {
 
     //MODIFIES: this
     //EFFECTS: based on the text, create a KeyMap with key for every distinct symbol in text that
-    // is not space, and an empty value.
+    // is not space, and an empty value. Does not overwrite current key
     public void makeKeyTemplate() {
         for (Character c : text) {
             if (!key.containsKey(c)) {
@@ -165,7 +168,7 @@ public class Text implements Writable {
     }
 
     @Override
-    // EFFECTS: converts Text instane to a JSONObject and returns it
+    // EFFECTS: converts Text instance to a JSONObject and returns it
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("key", key.toJson());
