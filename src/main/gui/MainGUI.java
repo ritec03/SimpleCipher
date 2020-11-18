@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.Vector;
 
 public class MainGUI extends JFrame {
     WorkSpace workSpace;
@@ -79,7 +81,17 @@ public class MainGUI extends JFrame {
         new MainGUI();
     }
 
-    public void updateKeyTable() {
-
+    public Vector<Vector> produceKeyVector() {
+        Set<Character> keySet = workSpace.getText().getKey().getKeySet();
+        Vector<Vector> vector = new Vector<>();
+        for (Character c: keySet) {
+            Vector<Character> row = new Vector<>();
+            row.add(c);
+            Character value = workSpace.getText().getKey().getValue(c);
+            row.add(value);
+            vector.add(row);
+        }
+        System.out.println(vector);
+        return vector;
     }
 }

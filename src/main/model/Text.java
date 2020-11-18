@@ -60,7 +60,6 @@ public class Text implements Writable {
     // punctuation marks  included, all capital letters are converted to lower-case letters. This method
     // overwrites ArrayList<Character> field on input.
     private ArrayList<Character> storeStringAsArray(String textAsString) {
-        // TODO check that this method actually overwrites
         ArrayList<Character> list = new ArrayList<>();
         char[] arrayText = textAsString.toCharArray();
         for (int n = 0; n < arrayText.length; n++) {
@@ -105,6 +104,7 @@ public class Text implements Writable {
     public void makeKeyTemplate() {
         for (Character c : text) {
             if (!key.containsKey(c)) {
+                // TODO check if change from null to '' is good
                 key.addKeyValue(c, null);
             }
         }

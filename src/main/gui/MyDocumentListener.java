@@ -1,12 +1,8 @@
 package gui;
 
-import model.Key;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.TableModel;
-import java.util.HashMap;
 
 public class MyDocumentListener implements DocumentListener {
     protected MainGUI mainGUI;
@@ -23,7 +19,7 @@ public class MyDocumentListener implements DocumentListener {
         String textInUI = mainGUI.textUI.textArea.getText();
         mainGUI.workSpace.getText().addText(textInUI);
         updateKey();
-       // mainGUI.updateKeyTable();
+        mainGUI.keyTable.updateKeyTableUI(mainGUI.produceKeyVector());
         mainGUI.workSpace.getText().encryptText();
 
         String ciphertext = mainGUI.workSpace.getText().printCiphertext();

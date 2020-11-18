@@ -5,6 +5,11 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 public class KeyTableListener implements TableModelListener {
+    MainGUI mainGUI;
+
+    public KeyTableListener(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
+    }
 
     @Override
     public void tableChanged(TableModelEvent e) {
