@@ -25,8 +25,8 @@ public class WorkSpaceGUI extends JFrame {
 
         createWorkspace();
 
-        savedKeysGUI = new SavedKeysGUI(workSpace);
-        Button newButton2 = new Button("Save current key");
+        savedKeysGUI = new SavedKeysGUI(workSpace, this);
+        Button newButton2 = new Button("Save current key", this);
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
@@ -43,10 +43,6 @@ public class WorkSpaceGUI extends JFrame {
 
         cipherTextUI = new CipherTextUI(this);
         centrePanel.add(cipherTextUI);
-
-        Button newButton3 = new Button("PAGE_END");
-        newButton3.setOpaque(true);
-        add(newButton3, BorderLayout.PAGE_END);
 
         add(centrePanel);
 
@@ -88,7 +84,6 @@ public class WorkSpaceGUI extends JFrame {
             row.add(value);
             vector.add(row);
         }
-        System.out.println(vector);
         return vector;
     }
 

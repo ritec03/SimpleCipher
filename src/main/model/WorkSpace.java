@@ -64,6 +64,7 @@ public class WorkSpace implements Writable {
 
     //MODIFIES: this
     //EFFECTS: adds key to savedKeys
+    // TODO add tests for name field
     public void addKeySetToSaved(Key key) {
         HashMap<Character, Character> savingMap = new HashMap<>();
         Set<Character> keys = key.getKeySet();
@@ -72,6 +73,7 @@ public class WorkSpace implements Writable {
         }
         Key savingKey = new Key();
         savingKey.setWholeKeySet(savingMap);
+        savingKey.setName(key.getName());
         savedKeys.add(savingKey);
     }
 
