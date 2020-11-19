@@ -25,6 +25,7 @@ import java.util.Set;
 public class Key implements Writable {
     private HashMap<Character, Character> keyMap;
     private HashMap<Character, Character> mapKey;
+    private String name;
 //    private HashSet<Character> sureList;
 
     // MODIFIES: this
@@ -45,6 +46,16 @@ public class Key implements Writable {
     //EFFECTS: returns key that corresponds to value
     public Character getKey(Character value) {
         return mapKey.get(value);
+    }
+
+    //EFFECTS: return key name;
+    public String getName() {
+        return name;
+    }
+
+    //EFFECTS: set key name:
+    public void setName(String name) {
+        this.name = name;
     }
 
     //EFFECTS: returns number of mappings in key (number of key-value pairs)

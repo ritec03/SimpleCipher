@@ -3,21 +3,20 @@ package gui;
 import model.Key;
 import model.WorkSpace;
 
-import javax.crypto.Cipher;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
 
-public class MainGUI extends JFrame {
+public class WorkSpaceGUI extends JFrame {
     WorkSpace workSpace;
     TextUI textUI;
     CipherTextUI cipherTextUI;
     KeyTable keyTable;
+    SavedKeysGUI savedKeysGUI;
 
-    public MainGUI() {
+    public WorkSpaceGUI() {
         super("myFrame");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,10 +25,15 @@ public class MainGUI extends JFrame {
 
         createWorkspace();
 
-        String[] keyStrings = {"A", "B", "C"};
-        JComboBox keyList = new JComboBox(keyStrings);
-        keyList.setOpaque(false);
-        add(keyList, BorderLayout.PAGE_START);
+        savedKeysGUI = new SavedKeysGUI(workSpace);
+        Button newButton2 = new Button("Save current key");
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
+        topPanel.add(savedKeysGUI);
+        topPanel.add(newButton2);
+
+        add(topPanel, BorderLayout.PAGE_START);
 
         JPanel centrePanel = new JPanel();
         centrePanel.setLayout(new BoxLayout(centrePanel,BoxLayout.X_AXIS));
@@ -49,13 +53,6 @@ public class MainGUI extends JFrame {
         keyTable = new KeyTable(this);
 
         add(keyTable, BorderLayout.LINE_END);
-//        String[] columnNames = {"Key", "Value"};
-//        Object[][] data = {{"A", "B"}, {"C","D"}};
-//        JTable table = new JTable(data, columnNames);
-//        JScrollPane tableScrollPane = new JScrollPane(table);
-//        table.setFillsViewportHeight(true);
-//
-//        add(tableScrollPane, BorderLayout.LINE_END);
 
         pack();
 
@@ -78,7 +75,7 @@ public class MainGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        new MainGUI();
+        new WorkSpaceGUI();
     }
 
     public Vector<Vector> produceKeyVector() {
@@ -94,4 +91,5 @@ public class MainGUI extends JFrame {
         System.out.println(vector);
         return vector;
     }
+
 }

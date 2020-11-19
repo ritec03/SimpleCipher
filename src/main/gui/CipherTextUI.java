@@ -1,18 +1,17 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CipherTextUI extends JPanel {
     protected JTextArea ciphertextArea;
     private static final String newline = "\n";
-    protected MainGUI mainGUI;
+    protected WorkSpaceGUI workSpaceGUI;
 
-    public CipherTextUI(MainGUI gui) {
-        mainGUI = gui;
+    public CipherTextUI(WorkSpaceGUI gui) {
+        workSpaceGUI = gui;
         ciphertextArea = new JTextArea(20, 10);
         ciphertextArea.setEditable(true);
+        ciphertextArea.setLineWrap(true);
         JScrollPane scrollPane = new JScrollPane(ciphertextArea);
         add(scrollPane);
     }

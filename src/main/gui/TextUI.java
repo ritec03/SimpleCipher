@@ -7,16 +7,17 @@ public class TextUI extends JPanel {
     protected JTextArea textArea;
     protected JTextField textField;
     private static final String newline = "\n";
-    protected MainGUI mainGUI;
+    protected WorkSpaceGUI workSpaceGUI;
 
-    public TextUI(MainGUI gui) {
-        mainGUI = gui;
+    public TextUI(WorkSpaceGUI gui) {
+        workSpaceGUI = gui;
         textArea = new JTextArea(20, 10);
         textArea.setEditable(true);
+        textArea.setLineWrap(true);
         JScrollPane scrollPane = new JScrollPane(textArea);
         add(scrollPane);
 
-        textArea.getDocument().addDocumentListener(new MyDocumentListener(mainGUI,textArea));
+        textArea.getDocument().addDocumentListener(new MyDocumentListener(workSpaceGUI,textArea));
     }
 
     public String returnText() {
