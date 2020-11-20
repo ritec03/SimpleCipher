@@ -4,7 +4,6 @@ import javax.swing.*;
 
 public class CipherTextUI extends JPanel {
     protected JTextArea ciphertextArea;
-    private static final String newline = "\n";
     protected WorkSpaceGUI workSpaceGUI;
 
     public CipherTextUI(WorkSpaceGUI gui) {

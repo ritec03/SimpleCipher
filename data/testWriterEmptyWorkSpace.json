@@ -5,11 +5,13 @@
         "text": [],
         "key": {
             "keyMap": {},
-            "mapKey": {}
+            "mapKey": {},
+            "name": ""
         }
     },
     "key": {
         "keyMap": {},
-        "mapKey": {}
+        "mapKey": {},
+        "name": ""
     }
 }

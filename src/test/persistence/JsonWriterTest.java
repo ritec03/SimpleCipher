@@ -60,6 +60,7 @@ public class JsonWriterTest {
             map.put('d', '4');
             map.put('e', '5');
             key1.setWholeKeySet(map);
+            key1.setName("Key");
 
             key2 = new Key();
             map = new HashMap<>();
@@ -69,6 +70,7 @@ public class JsonWriterTest {
             map.put('d', '8');
             map.put('e', '9');
             key2.setWholeKeySet(map);
+            key2.setName("Key");
 
             key3 = new Key();
             map = new HashMap<>();
@@ -78,6 +80,7 @@ public class JsonWriterTest {
             map.put('d', 'i');
             map.put('e', 'k');
             key3.setWholeKeySet(map);
+            key3.setName("Key");
 
             text = new Text();
             String s = "A bc Def.";

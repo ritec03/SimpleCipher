@@ -5,12 +5,14 @@
         "text": [],
         "key": {
             "keyMap": {},
-            "mapKey": {}
+            "mapKey": {},
+            "name": ""
         }
     },
     "previousKey": {
         "keyMap": {},
-        "mapKey": {}
+        "mapKey": {},
+        "name": ""
     },
     "savedKeys": [],
     "text": {
@@ -18,11 +20,13 @@
         "text": [],
         "key": {
             "keyMap": {},
-            "mapKey": {}
+            "mapKey": {},
+          "name": ""
         }
     },
     "key": {
         "keyMap": {},
-        "mapKey": {}
+        "mapKey": {},
+        "name": ""
     }
 }

@@ -36,6 +36,7 @@ public class JsonReaderTest {
             assertEquals(0, ws.getText().getKey().getKeySet().size());
             assertEquals(0, ws.getText().textSize());
             assertEquals(0, ws.getKey().getKeySet().size());
+            assertEquals("", ws.getKey().getName());
 //            assertEquals(0, ws.getPreviousText().getKey().getKeySet().size());
 //            assertEquals(0, ws.getPreviousText().textSize());
 //            assertEquals(0, ws.getPreviousKey().getKeySet().size());
@@ -56,6 +57,7 @@ public class JsonReaderTest {
             assertEquals('a', ws.getKey().getValue('4'));
             assertEquals('b', ws.getKey().getValue('5'));
             assertEquals('c', ws.getKey().getValue('6'));
+            assertEquals("Key", ws.getKey().getName());
 
             assertEquals(2, ws.getSavedKeys().size());
 
@@ -64,12 +66,14 @@ public class JsonReaderTest {
             assertEquals('a', firstKey.getValue('1'));
             assertEquals('b', firstKey.getValue('2'));
             assertEquals('c', firstKey.getValue('3'));
+            assertEquals("Key", firstKey.getName());
 
             Key secondKey = ws.getSavedKeys().get(1);
             assertEquals(3, secondKey.keySize());
             assertEquals('a', secondKey.getValue('4'));
             assertEquals('b', secondKey.getValue('5'));
             assertEquals('c', secondKey.getValue('6'));
+            assertEquals("Key", secondKey.getName());
 
         } catch(IOException e) {
 

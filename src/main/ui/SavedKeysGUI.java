@@ -26,21 +26,7 @@ public class SavedKeysGUI extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        JComboBox cb = (JComboBox) e.getSource();
-//        String selectedKeyName = (String) cb.getSelectedItem();
-//
-//        for (Key k : workSpace.getSavedKeys()) {
-//            if (selectedKeyName.equals(k.getName())) {
-//                workSpace.getText().setKeyMap(k);
-//            }
-//        }
-//
-//        workSpaceGUI.keyTable.updateKeyTableUI(workSpaceGUI.produceKeyVector());
-//        workSpaceGUI.workSpace.getText().encryptText();
-//
-//        String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-//        workSpaceGUI.cipherTextUI.ciphertextArea.setText(null);
-//        workSpaceGUI.cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+
     }
 
     public void saveCurrentKey() {

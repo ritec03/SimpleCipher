@@ -53,9 +53,7 @@ public class KeyTable extends JPanel implements TableModelListener {
             Character key = (Character) keyData;
             workSpaceGUI.workSpace.getText().getKey().replaceValue(key,value);
 
-            // TODO clean up the mess
             workSpaceGUI.workSpace.getText().encryptText();
-
             String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
             workSpaceGUI.cipherTextUI.ciphertextArea.setText(null);
             workSpaceGUI.cipherTextUI.ciphertextArea.insert(ciphertext, 0);

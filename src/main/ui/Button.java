@@ -14,7 +14,7 @@ public class Button extends JPanel implements ActionListener {
         this.workSpaceGUI = workSpaceGUI;
         button = new JButton(name);
         button.setVerticalTextPosition(AbstractButton.CENTER);
-        button.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
+        button.setHorizontalTextPosition(AbstractButton.LEADING);
         button.addActionListener(this);
         button.setActionCommand(actionCommand);
         add(button);
@@ -35,7 +35,8 @@ public class Button extends JPanel implements ActionListener {
                 }
             }
 
-            workSpaceGUI.workSpace.getText().makeKeyTemplate(); //as number of keys might have been increased
+            workSpaceGUI.workSpace.getText().makeKeyTemplate();
+            //as number of keys might have been increased
             workSpaceGUI.keyTable.updateKeyTableUI(workSpaceGUI.produceKeyVector());
             workSpaceGUI.workSpace.getText().encryptText();
 
