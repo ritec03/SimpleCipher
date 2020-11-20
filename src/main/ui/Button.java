@@ -34,6 +34,8 @@ public class Button extends JPanel implements ActionListener {
                     workSpaceGUI.workSpace.getText().setKeyMap(k);
                 }
             }
+
+            workSpaceGUI.workSpace.getText().makeKeyTemplate(); //as number of keys might have been increased
             workSpaceGUI.keyTable.updateKeyTableUI(workSpaceGUI.produceKeyVector());
             workSpaceGUI.workSpace.getText().encryptText();
 

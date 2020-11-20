@@ -1,5 +1,6 @@
 package ui;
 
+import model.Key;
 import model.WorkSpace;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -35,7 +36,7 @@ public class WorkSpaceGUI extends JFrame {
         MenuGUI menuBar = new MenuGUI(this);
         setJMenuBar(menuBar);
 
-        savedKeysGUI = new SavedKeysGUI(workSpace, this);
+        savedKeysGUI = new SavedKeysGUI(this);
         Button saveKeyButton = new Button("Save current key", this, "save");
         JLabel savedKeyLabel = new JLabel("Select Key");
 
@@ -162,6 +163,7 @@ public class WorkSpaceGUI extends JFrame {
 
     public void loadPreviousData() throws IOException {
         workSpace = reader.read();
+
         keyTable.updateKeyTableUI(produceKeyVector());
         workSpace.getText().encryptText();
 
@@ -172,9 +174,17 @@ public class WorkSpaceGUI extends JFrame {
         String ciphertext = workSpace.getText().printCiphertext();
         cipherTextUI.ciphertextArea.setText(null);
         cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+
+        savedKeysGUI.clear();
+        for (Key k: workSpace.getSavedKeys()) {
+            String keyName = k.getName();
+            savedKeysGUI.keyList.addItem(keyName);
+        }
+        savedKeysGUI.savedKeysSoFar = workSpace.getSavedKeys().size() + 1;
     }
 
     public void clear() {
+        workSpace.getSavedKeys().clear();
         workSpace.getText().addText("");
         workSpace.getText().getKey().clear();
         keyTable.updateKeyTableUI(produceKeyVector());
@@ -187,5 +197,6 @@ public class WorkSpaceGUI extends JFrame {
         String ciphertext = workSpace.getText().printCiphertext();
         cipherTextUI.ciphertextArea.setText(null);
         cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+        savedKeysGUI.clear();
     }
 }

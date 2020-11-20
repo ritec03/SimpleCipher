@@ -104,7 +104,6 @@ public class Text implements Writable {
     public void makeKeyTemplate() {
         for (Character c : text) {
             if (!key.containsKey(c)) {
-                // TODO check if change from null to '' is good
                 key.addKeyValue(c, null);
             }
         }

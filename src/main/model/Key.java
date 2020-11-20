@@ -36,6 +36,7 @@ public class Key implements Writable {
         // note:since I haven't integrated the functionality related to sureList field into the
         // program, I am commenting it out along with all the methods and tests using it.
 //        sureList = new HashSet<>();
+        name = "";
     }
 
     //EFFECTS: returns the value associated with key.
@@ -209,6 +210,8 @@ public class Key implements Writable {
         JSONObject json = new JSONObject();
         json.put("keyMap", keyMapToJson());
         json.put("mapKey", mapKeyToJson());
+        // TODO check this json thing
+        json.put("name", name);
 //        json.put("sureList", sureListToJson());
         return json;
     }
