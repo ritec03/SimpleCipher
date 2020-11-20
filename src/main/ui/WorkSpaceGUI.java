@@ -36,15 +36,20 @@ public class WorkSpaceGUI extends JFrame {
         setJMenuBar(menuBar);
 
         savedKeysGUI = new SavedKeysGUI(workSpace, this);
-        SaveKeyButton newSaveKeyButton2 = new SaveKeyButton("Save current key", this);
+        Button saveKeyButton = new Button("Save current key", this, "save");
         JLabel savedKeyLabel = new JLabel("Select Key");
+
+        Button clearButton = new Button("Clear workspace", this, "clear");
+        Button chooseKey = new Button("Choose selected key", this, "choose");
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(savedKeyLabel);
         topPanel.add(savedKeysGUI);
-        topPanel.add(newSaveKeyButton2);
+        topPanel.add(saveKeyButton);
+        topPanel.add(chooseKey);
+        topPanel.add(clearButton);
 
         add(topPanel, BorderLayout.PAGE_START);
 
@@ -157,6 +162,21 @@ public class WorkSpaceGUI extends JFrame {
 
     public void loadPreviousData() throws IOException {
         workSpace = reader.read();
+        keyTable.updateKeyTableUI(produceKeyVector());
+        workSpace.getText().encryptText();
+
+        String text = workSpace.getText().printText();
+        textUI.textArea.setText(null);
+        textUI.textArea.insert(text, 0);
+
+        String ciphertext = workSpace.getText().printCiphertext();
+        cipherTextUI.ciphertextArea.setText(null);
+        cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+    }
+
+    public void clear() {
+        workSpace.getText().addText("");
+        workSpace.getText().getKey().clear();
         keyTable.updateKeyTableUI(produceKeyVector());
         workSpace.getText().encryptText();
 
