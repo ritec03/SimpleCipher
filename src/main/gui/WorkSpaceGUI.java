@@ -1,11 +1,9 @@
 package gui;
 
-import model.Key;
 import model.WorkSpace;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
 
@@ -58,16 +56,6 @@ public class WorkSpaceGUI extends JFrame {
 
     private void createWorkspace() {
         workSpace = new WorkSpace();
-        Key testKey = new Key();
-        HashMap<Character, Character> map = new HashMap<>();
-        map.put('a', 'b');
-        map.put('b', 'c');
-        map.put('c', 'd');
-        map.put('d', 'e');
-        map.put('e', 'f');
-        testKey.setWholeKeySet(map);
-        //TODO make sure workspace.setkey changes key in workspace.gettext();
-        workSpace.getText().setKeyMap(testKey);
     }
 
     public static void main(String[] args) {

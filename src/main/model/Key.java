@@ -6,19 +6,19 @@ import persistence.Writable;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-
 
 
 /**
  * this class represent a key with which a text is encoded/decoded using the substitution cipher.
  * This key class only corresponds to a key for the simple substitution cipher, where each character
  * corresponds only to one value.
- *
+ * <p>
  * The key is represented through two maps - keyMap is the map from keys
  * to values, and mapKey which is the map from values to keys. Both maps are maintained to have the same
  * mappings and together constitute a bi-directional mapping with the ability to access keys and values.
- *
+ * <p>
  * The key also contains a sureList which represents key-value pairs which the user considers to be correct
  * during decoding, the sure list is represented as a set of keys.
  */
@@ -85,7 +85,7 @@ public class Key implements Writable {
     // returns false
     public boolean addKeyValue(char key, Character value) {
         if (keyMap.putIfAbsent(key, value) == null) {
-            keyMap.putIfAbsent(key,value);
+            keyMap.putIfAbsent(key, value);
             mapKey.putIfAbsent(value, key);
             return true;
         }
@@ -95,10 +95,12 @@ public class Key implements Writable {
     //MODIFIES: this
     //EFFECTS: removes key value pair from keymap if key is there and returns true, if key is not there,
     // returns false
+    // TODO check for correctness
     public boolean removeKeyValue(char key) {
         if (keyMap.containsKey(key)) {
+            Character value = keyMap.get(key);
             keyMap.remove(key);
-            mapKey.remove(key);
+            mapKey.remove(value);
             return true;
         }
         return false;
@@ -175,7 +177,7 @@ public class Key implements Writable {
     public String printKey() {
         String keyString = "";
         Set<Character> keys = keyMap.keySet();
-        for (Character c: keys) {
+        for (Character c : keys) {
             String kv = c.toString() + "-" + keyMap.get(c).toString() + ", ";
             keyString = keyString + kv;
         }
@@ -185,6 +187,20 @@ public class Key implements Writable {
     // EFFECTS: returns true if the key mapping contains key for the specified value.
     public boolean hasKeyForValue(Character c) {
         return mapKey.get(c) != null;
+    }
+
+
+    //TODO write specifications
+    public Key copyKey() {
+        HashMap<Character, Character> savingMap = new HashMap<>();
+        Set<Character> keys = getKeySet();
+        for (Character c : keys) {
+            savingMap.put(c, getValue(c));
+        }
+        Key savingKey = new Key();
+        savingKey.setWholeKeySet(savingMap);
+        savingKey.setName(getName());
+        return savingKey;
     }
 
     @Override
@@ -220,6 +236,5 @@ public class Key implements Writable {
 //
 //        return jsonArray;
 //    }
-
 
 }
