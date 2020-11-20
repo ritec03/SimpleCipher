@@ -16,8 +16,8 @@ public class KeyTable extends JPanel implements TableModelListener {
         this.workSpaceGUI = workSpaceGUI;
 
         columnNameVector = new Vector<>();
-        columnNameVector.add("Key");
-        columnNameVector.add("Value");
+        columnNameVector.add("Input symbol");
+        columnNameVector.add("Output symbol");
 
         Vector<Vector> vector = workSpaceGUI.produceKeyVector();
 
@@ -44,7 +44,7 @@ public class KeyTable extends JPanel implements TableModelListener {
         TableModel model = (TableModel)e.getSource();
         String columnName = model.getColumnName(column);
         Object data = model.getValueAt(row, column);
-        if (columnName.equals("Value")) {
+        if (columnName.equals("Output symbol")) {
             String dataString = (String) data;
             char[] dataStringArray = dataString.toCharArray();
             Character value = (Character) Array.get(dataStringArray, 0);

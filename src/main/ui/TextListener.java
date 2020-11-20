@@ -4,11 +4,11 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class MyDocumentListener implements DocumentListener {
+public class TextListener implements DocumentListener {
     protected WorkSpaceGUI workSpaceGUI;
     protected JTextArea textArea;
 
-    public MyDocumentListener(WorkSpaceGUI workSpaceGUI, JTextArea textArea) {
+    public TextListener(WorkSpaceGUI workSpaceGUI, JTextArea textArea) {
         this.workSpaceGUI = workSpaceGUI;
         this.textArea = textArea;
     }

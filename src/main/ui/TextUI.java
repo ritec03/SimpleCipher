@@ -5,7 +5,6 @@ import javax.swing.*;
 
 public class TextUI extends JPanel {
     protected JTextArea textArea;
-    protected JTextField textField;
     private static final String newline = "\n";
     protected WorkSpaceGUI workSpaceGUI;
 
@@ -17,7 +16,7 @@ public class TextUI extends JPanel {
         JScrollPane scrollPane = new JScrollPane(textArea);
         add(scrollPane);
 
-        textArea.getDocument().addDocumentListener(new MyDocumentListener(workSpaceGUI,textArea));
+        textArea.getDocument().addDocumentListener(new TextListener(workSpaceGUI,textArea));
     }
 
     public String returnText() {

@@ -4,8 +4,11 @@ import model.WorkSpace;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
@@ -36,10 +39,8 @@ public class WorkSpaceGUI extends JFrame {
         SaveKeyButton newSaveKeyButton2 = new SaveKeyButton("Save current key", this);
         JLabel savedKeyLabel = new JLabel("Select Key");
 
-        RadioButtons radioButtons = new RadioButtons(this);
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
-        topPanel.add(radioButtons);
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(savedKeyLabel);
         topPanel.add(savedKeysGUI);
@@ -54,7 +55,7 @@ public class WorkSpaceGUI extends JFrame {
         //centre panel left part
         JPanel centrePanelLeft = new JPanel();
         centrePanelLeft.setLayout(new BoxLayout(centrePanelLeft, BoxLayout.Y_AXIS));
-        JLabel label1 = new JLabel("Decoded Text");
+        JLabel label1 = new JLabel("Input text");
         textUI = new TextUI(this);
         centrePanelLeft.add(label1);
         centrePanelLeft.add(textUI);
@@ -63,7 +64,7 @@ public class WorkSpaceGUI extends JFrame {
         //centre panel right part
         JPanel centrePanelRight = new JPanel();
         centrePanelRight.setLayout(new BoxLayout(centrePanelRight, BoxLayout.Y_AXIS));
-        JLabel label2 = new JLabel("Encoded Text");
+        JLabel label2 = new JLabel("Output text");
         cipherTextUI = new CipherTextUI(this);
         centrePanelRight.add(label2);
         centrePanelRight.add(cipherTextUI);
@@ -71,11 +72,48 @@ public class WorkSpaceGUI extends JFrame {
 
         add(centrePanel);
 
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+        File image = new File("data/Caesar_Shift_Cipher_Wheel.png");
+        BufferedImage caesar = null;
+        try {
+            caesar = ImageIO.read(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = caesar.getScaledInstance(170,210,
+                Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(dimg);
+        JLabel picture = new JLabel(icon);
+        bottomPanel.add(picture);
+        topPanel.add(Box.createHorizontalGlue());
+        JTextArea explanation = new JTextArea(10,10);
+        explanation.setEditable(false);
+        explanation.setLineWrap(true);
+        explanation.setText("This is a tool to encode and try to decode a simple"
+                + "substitution cipher\n"
+                + "Type in or copy and paste the text you want to encode/decode into the  \n"
+                + "the input area. Then, you will see that all the symbols that appear in \n"
+                + "the text are in the table on the right in the \"Input symbols\" column. \n"
+                + "For every symbol, type in a symbol you want to encode/decode it with \n"
+                + "into the \"Output column\" and hit Enter. The output text will be updated \n"
+                + "so that the encoded/decoded symbol will be substituted as you indicated. \n"
+                + "If a symbol does not have an output symbol that can substitute it, it will \n"
+                + "appear as \"-\" in the output text.\n"
+                + "\n"
+                + "The picture on the right is an example of Caesar cipher, which is an example of\n"
+                + "a simple substitution cipher that we are doing here. In Caesar cipher, encryption\n"
+                + "occurs by simple shift of the alphabet letters. Picture from Wikimedia Commons.");
+
+        bottomPanel.add(explanation);
+        add(bottomPanel, BorderLayout.PAGE_END);
+
         keyTable = new KeyTable(this);
 
         add(keyTable, BorderLayout.LINE_END);
 
         pack();
+        System.out.println(this.getSize());
 
         setVisible(true);
     }
@@ -99,16 +137,6 @@ public class WorkSpaceGUI extends JFrame {
             vector.add(row);
         }
         return vector;
-    }
-
-    // TODO implement
-    public void setEncodeMode() {
-
-    }
-
-    // TODO implement
-    public void setDecodeMode() {
-
     }
 
     public void saveData() {

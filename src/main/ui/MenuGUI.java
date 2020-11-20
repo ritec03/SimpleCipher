@@ -10,13 +10,14 @@ public class MenuGUI extends JMenuBar implements ActionListener {
 
     public MenuGUI(WorkSpaceGUI workSpaceGUI) {
         this.workSpaceGUI = workSpaceGUI;
-        JMenu menu = new JMenu("A Menu");
+        JMenu menu = new JMenu("Persistence");
         JMenuItem save = new JMenuItem("Save");
         save.addActionListener(this);
         menu.add(save);
         JMenuItem loadPrevious = new JMenuItem("Load Previous");
         loadPrevious.addActionListener(this);
         menu.add(loadPrevious);
+
         add(menu);
     }
 

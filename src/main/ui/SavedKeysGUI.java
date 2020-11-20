@@ -18,7 +18,6 @@ public class SavedKeysGUI extends JPanel implements ActionListener {
         this.workSpaceGUI = workSpaceGUI;
         savedKeysSoFar = 1;
         Vector<String> keyStrings = new Vector<>();
-        keyStrings.add("Current key");
         this.workSpace = workSpace;
 
         keyList = new JComboBox(keyStrings);
