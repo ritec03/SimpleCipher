@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;

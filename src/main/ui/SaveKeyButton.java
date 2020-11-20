@@ -1,14 +1,14 @@
-package gui;
+package ui;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Button extends JPanel implements ActionListener {
+public class SaveKeyButton extends JPanel implements ActionListener {
     WorkSpaceGUI workSpaceGUI;
     JButton button;
 
-    public Button(String name, WorkSpaceGUI workSpaceGUI) {
+    public SaveKeyButton(String name, WorkSpaceGUI workSpaceGUI) {
         this.workSpaceGUI = workSpaceGUI;
         button = new JButton(name);
         button.setVerticalTextPosition(AbstractButton.CENTER);
