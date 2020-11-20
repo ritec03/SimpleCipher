@@ -36,25 +36,69 @@ public class WorkSpaceGUI extends JFrame {
         MenuGUI menuBar = new MenuGUI(this);
         setJMenuBar(menuBar);
 
-        savedKeysGUI = new SavedKeysGUI(this);
-        Button saveKeyButton = new Button("Save current key", this, "save");
-        JLabel savedKeyLabel = new JLabel("Select Key");
-
-        Button clearButton = new Button("Clear workspace", this, "clear");
-        Button chooseKey = new Button("Choose selected key", this, "choose");
-
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
-        topPanel.add(Box.createHorizontalGlue());
-        topPanel.add(savedKeyLabel);
-        topPanel.add(savedKeysGUI);
-        topPanel.add(saveKeyButton);
-        topPanel.add(chooseKey);
-        topPanel.add(clearButton);
-
+        JPanel topPanel = initializePageStartPanel();
         add(topPanel, BorderLayout.PAGE_START);
 
-        // centre panel
+        JPanel centrePanel = initializeCentrePanel();
+        add(centrePanel);
+
+        JPanel bottomPanel = initializeBottomPanel();
+        add(bottomPanel, BorderLayout.PAGE_END);
+
+        keyTable = new KeyTable(this);
+        add(keyTable, BorderLayout.LINE_END);
+
+        pack();
+        System.out.println(this.getSize());
+        setVisible(true);
+    }
+
+    private JPanel initializeBottomPanel() {
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+        JLabel picture = initializePicture();
+        bottomPanel.add(picture);
+        JTextArea explanation = initializeExplanationText();
+        bottomPanel.add(explanation);
+        return bottomPanel;
+    }
+
+    private JTextArea initializeExplanationText() {
+        JTextArea explanation = new JTextArea(10,10);
+        explanation.setEditable(false);
+        explanation.setLineWrap(true);
+        explanation.setText("This is a tool to encode and try to decode a simple"
+                + "substitution cipher\n"
+                + "Type in or copy and paste the text you want to encode/decode into the  \n"
+                + "the input area. Then, you will see that all the symbols that appear in \n"
+                + "the text are in the table on the right in the \"Input symbols\" column. \n"
+                + "For every symbol, type in a symbol you want to encode/decode it with \n"
+                + "into the \"Output column\" and hit Enter. The output text will be updated \n"
+                + "so that the encoded/decoded symbol will be substituted as you indicated. \n"
+                + "If a symbol does not have an output symbol that can substitute it, it will \n"
+                + "appear as \"-\" in the output text.\n"
+                + "\n"
+                + "The picture on the right is an example of Caesar cipher, which is an example of\n"
+                + "a simple substitution cipher that we are doing here. In Caesar cipher, encryption\n"
+                + "occurs by simple shift of the alphabet letters. Picture from Wikimedia Commons.");
+        return explanation;
+    }
+
+    private JLabel initializePicture() {
+        File image = new File("data/Caesar_Shift_Cipher_Wheel.png");
+        BufferedImage caesar = null;
+        try {
+            caesar = ImageIO.read(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = caesar.getScaledInstance(170,210,
+                Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(dimg);
+        return new JLabel(icon);
+    }
+
+    private JPanel initializeCentrePanel() {
         JPanel centrePanel = new JPanel();
         centrePanel.setLayout(new BoxLayout(centrePanel,BoxLayout.X_AXIS));
 
@@ -75,53 +119,26 @@ public class WorkSpaceGUI extends JFrame {
         centrePanelRight.add(label2);
         centrePanelRight.add(cipherTextUI);
         centrePanel.add(centrePanelRight);
+        return centrePanel;
+    }
 
-        add(centrePanel);
+    private JPanel initializePageStartPanel() {
+        savedKeysGUI = new SavedKeysGUI(this);
+        Button saveKeyButton = new Button("Save current key", this, "save");
+        JLabel savedKeyLabel = new JLabel("Select Key");
 
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-        File image = new File("data/Caesar_Shift_Cipher_Wheel.png");
-        BufferedImage caesar = null;
-        try {
-            caesar = ImageIO.read(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image dimg = caesar.getScaledInstance(170,210,
-                Image.SCALE_SMOOTH);
-        ImageIcon icon = new ImageIcon(dimg);
-        JLabel picture = new JLabel(icon);
-        bottomPanel.add(picture);
+        Button clearButton = new Button("Clear workspace", this, "clear");
+        Button chooseKey = new Button("Choose selected key", this, "choose");
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
         topPanel.add(Box.createHorizontalGlue());
-        JTextArea explanation = new JTextArea(10,10);
-        explanation.setEditable(false);
-        explanation.setLineWrap(true);
-        explanation.setText("This is a tool to encode and try to decode a simple"
-                + "substitution cipher\n"
-                + "Type in or copy and paste the text you want to encode/decode into the  \n"
-                + "the input area. Then, you will see that all the symbols that appear in \n"
-                + "the text are in the table on the right in the \"Input symbols\" column. \n"
-                + "For every symbol, type in a symbol you want to encode/decode it with \n"
-                + "into the \"Output column\" and hit Enter. The output text will be updated \n"
-                + "so that the encoded/decoded symbol will be substituted as you indicated. \n"
-                + "If a symbol does not have an output symbol that can substitute it, it will \n"
-                + "appear as \"-\" in the output text.\n"
-                + "\n"
-                + "The picture on the right is an example of Caesar cipher, which is an example of\n"
-                + "a simple substitution cipher that we are doing here. In Caesar cipher, encryption\n"
-                + "occurs by simple shift of the alphabet letters. Picture from Wikimedia Commons.");
-
-        bottomPanel.add(explanation);
-        add(bottomPanel, BorderLayout.PAGE_END);
-
-        keyTable = new KeyTable(this);
-
-        add(keyTable, BorderLayout.LINE_END);
-
-        pack();
-        System.out.println(this.getSize());
-
-        setVisible(true);
+        topPanel.add(savedKeyLabel);
+        topPanel.add(savedKeysGUI);
+        topPanel.add(saveKeyButton);
+        topPanel.add(chooseKey);
+        topPanel.add(clearButton);
+        return topPanel;
     }
 
     private void createWorkspace() {

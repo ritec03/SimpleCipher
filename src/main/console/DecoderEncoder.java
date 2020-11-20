@@ -1,4 +1,4 @@
-package oldUi;
+package console;
 
 import model.Key;
 import model.Text;

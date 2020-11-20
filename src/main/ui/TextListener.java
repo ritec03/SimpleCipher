@@ -16,7 +16,7 @@ public class TextListener implements DocumentListener {
     @Override
     // EFFECTS: inse
     public void insertUpdate(DocumentEvent e) {
-        String textInUI = workSpaceGUI.textUI.textArea.getText();
+        String textInUI = workSpaceGUI.textUI.returnText();
         workSpaceGUI.workSpace.getText().addText(textInUI);
         updateKey();
         workSpaceGUI.keyTable.updateKeyTableUI(workSpaceGUI.produceKeyVector());

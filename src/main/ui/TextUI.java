@@ -5,7 +5,6 @@ import javax.swing.*;
 
 public class TextUI extends JPanel {
     protected JTextArea textArea;
-    private static final String newline = "\n";
     protected WorkSpaceGUI workSpaceGUI;
 
     public TextUI(WorkSpaceGUI gui) {

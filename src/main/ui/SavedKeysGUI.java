@@ -1,14 +1,11 @@
 package ui;
 
 import model.Key;
-import model.WorkSpace;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class SavedKeysGUI extends JPanel implements ActionListener {
+public class SavedKeysGUI extends JPanel {
     private final WorkSpaceGUI workSpaceGUI;
     JComboBox keyList;
     int savedKeysSoFar;
@@ -20,13 +17,7 @@ public class SavedKeysGUI extends JPanel implements ActionListener {
 
         keyList = new JComboBox(keyStrings);
         keyList.setOpaque(false);
-        keyList.addActionListener(this);
         add(keyList);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 
     public void saveCurrentKey() {
@@ -38,21 +29,13 @@ public class SavedKeysGUI extends JPanel implements ActionListener {
         workSpaceGUI.workSpace.addKeySetToSaved(copiedKey);
 
         keyList.addItem(keyName);
-        // TODO here the key in text switches
         keyList.setSelectedItem(keyName);
     }
 
     public void clear() {
-
         while (keyList.getItemCount() != 0) {
             keyList.removeItemAt(0);
         }
-
-//        Vector<String> keyStrings = new Vector<>();
-//        JComboBox newBox = new JComboBox(keyStrings);
-//        ComboBoxModel newModel = newBox.getModel();
-//        keyList.setModel(newModel);
-//        keyList.addActionListener(this);
         savedKeysSoFar = 1;
     }
 }
