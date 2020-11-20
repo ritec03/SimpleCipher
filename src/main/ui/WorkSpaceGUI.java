@@ -1,9 +1,13 @@
 package ui;
 
 import model.WorkSpace;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;
 
@@ -13,6 +17,8 @@ public class WorkSpaceGUI extends JFrame {
     CipherTextUI cipherTextUI;
     KeyTable keyTable;
     SavedKeysGUI savedKeysGUI;
+    JsonWriter writer = new JsonWriter("./data/workspace.json");
+    JsonReader reader = new JsonReader("./data/workspace.json");
 
     public WorkSpaceGUI() {
         super("myFrame");
@@ -23,13 +29,7 @@ public class WorkSpaceGUI extends JFrame {
 
         createWorkspace();
 
-        JMenu menu = new JMenu("A Menu");
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(menu);
-        JMenuItem save = new JMenuItem("Save");
-        menu.add(save);
-        JMenuItem loadPrevious = new JMenuItem("Load Previous");
-        menu.add(loadPrevious);
+        MenuGUI menuBar = new MenuGUI(this);
         setJMenuBar(menuBar);
 
         savedKeysGUI = new SavedKeysGUI(workSpace, this);
@@ -109,5 +109,35 @@ public class WorkSpaceGUI extends JFrame {
     // TODO implement
     public void setDecodeMode() {
 
+    }
+
+    public void saveData() {
+        try {
+            saveWorkSpace();
+            JOptionPane.showMessageDialog(this, "File was saved successfully.");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "File was not found!");
+        }
+    }
+
+    // EFFECTS: saves workspace to json file
+    private void saveWorkSpace() throws FileNotFoundException {
+        writer.open();
+        writer.write(workSpace);
+        writer.close();
+    }
+
+    public void loadPreviousData() throws IOException {
+        workSpace = reader.read();
+        keyTable.updateKeyTableUI(produceKeyVector());
+        workSpace.getText().encryptText();
+
+        String text = workSpace.getText().printText();
+        textUI.textArea.setText(null);
+        textUI.textArea.insert(text, 0);
+
+        String ciphertext = workSpace.getText().printCiphertext();
+        cipherTextUI.ciphertextArea.setText(null);
+        cipherTextUI.ciphertextArea.insert(ciphertext, 0);
     }
 }
