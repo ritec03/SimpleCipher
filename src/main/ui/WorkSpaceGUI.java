@@ -99,6 +99,8 @@ public class WorkSpaceGUI extends JFrame {
     // MODIFIES this
     // EFFECTS returns JLabel with Caesar cipher icon
     private JLabel initializePicture() {
+        // the code in this method has been inspired by
+        // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel/16345968
         File image = new File("data/Caesar_Shift_Cipher_Wheel.png");
         BufferedImage caesar = null;
         try {
