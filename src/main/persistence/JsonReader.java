@@ -136,7 +136,6 @@ public class JsonReader {
         // the following way to parse hash map was inspired by
         // answer on URL: https://www.edureka.co/community/7982/iterate-over-a-jsonobject
         HashMap<Character,Character> keyMapFromJson = new HashMap<>();
-        // TODO check json thing
         k.setName(key.getString("name"));
         JSONObject jsonKeyMap = (JSONObject) key.get("keyMap");
         JSONArray keyMapNames = jsonKeyMap.names();

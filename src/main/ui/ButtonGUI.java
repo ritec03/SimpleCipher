@@ -6,11 +6,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Button extends JPanel implements ActionListener {
+/*
+Represents buttons in GUI
+ */
+public class ButtonGUI extends JPanel implements ActionListener {
     WorkSpaceGUI workSpaceGUI;
     JButton button;
 
-    public Button(String name, WorkSpaceGUI workSpaceGUI, String actionCommand) {
+    // EFFECTS: produces new buttons
+    public ButtonGUI(String name, WorkSpaceGUI workSpaceGUI, String actionCommand) {
         this.workSpaceGUI = workSpaceGUI;
         button = new JButton(name);
         button.setVerticalTextPosition(AbstractButton.CENTER);
@@ -22,6 +26,8 @@ public class Button extends JPanel implements ActionListener {
 
 
     @Override
+    // MODIFIES workSpaceGUI
+    // EFFECTS responds to user's selection of Buttons in GUI
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("save")) {
             workSpaceGUI.savedKeysGUI.saveCurrentKey();
@@ -37,12 +43,12 @@ public class Button extends JPanel implements ActionListener {
 
             workSpaceGUI.workSpace.getText().makeKeyTemplate();
             //as number of keys might have been increased
-            workSpaceGUI.keyTable.updateKeyTableUI(workSpaceGUI.produceKeyVector());
+            workSpaceGUI.keyTableGUI.updateKeyTableUI(workSpaceGUI.produceKeyVector());
             workSpaceGUI.workSpace.getText().encryptText();
 
             String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-            workSpaceGUI.cipherTextUI.ciphertextArea.setText(null);
-            workSpaceGUI.cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+            workSpaceGUI.outputTextUI.ciphertextArea.setText(null);
+            workSpaceGUI.outputTextUI.ciphertextArea.insert(ciphertext, 0);
 
         }
     }

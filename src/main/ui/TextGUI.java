@@ -3,11 +3,11 @@ package ui;
 import javax.swing.*;
 
 
-public class TextUI extends JPanel {
+public class TextGUI extends JPanel {
     protected JTextArea textArea;
     protected WorkSpaceGUI workSpaceGUI;
 
-    public TextUI(WorkSpaceGUI gui) {
+    public TextGUI(WorkSpaceGUI gui) {
         workSpaceGUI = gui;
         textArea = new JTextArea(20, 10);
         textArea.setEditable(true);

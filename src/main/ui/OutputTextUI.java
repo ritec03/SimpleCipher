@@ -2,11 +2,14 @@ package ui;
 
 import javax.swing.*;
 
-public class CipherTextUI extends JPanel {
+/*
+Represents output text in GUI
+ */
+public class OutputTextUI extends JPanel {
     protected JTextArea ciphertextArea;
     protected WorkSpaceGUI workSpaceGUI;
 
-    public CipherTextUI(WorkSpaceGUI gui) {
+    public OutputTextUI(WorkSpaceGUI gui) {
         workSpaceGUI = gui;
         ciphertextArea = new JTextArea(20, 10);
         ciphertextArea.setEditable(true);

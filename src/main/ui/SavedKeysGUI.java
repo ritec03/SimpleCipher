@@ -5,11 +5,17 @@ import model.Key;
 import javax.swing.*;
 import java.util.Vector;
 
+
+/*
+This class represents SavedKeysGUI combo box in main GUI
+ */
 public class SavedKeysGUI extends JPanel {
     private final WorkSpaceGUI workSpaceGUI;
     JComboBox keyList;
     int savedKeysSoFar;
 
+    //MODIFIES this
+    //EFFECTS produces a new SavedKeysGUI
     public SavedKeysGUI(WorkSpaceGUI workSpaceGUI) {
         this.workSpaceGUI = workSpaceGUI;
         savedKeysSoFar = 1;
@@ -20,6 +26,8 @@ public class SavedKeysGUI extends JPanel {
         add(keyList);
     }
 
+    //MODIFIES this, workSpaceGUI
+    //EFFECTS saves current key in workspace of WorkSpaceGUI and adds item to this
     public void saveCurrentKey() {
         String keyName = "Key " + savedKeysSoFar;
         Key copiedKey = workSpaceGUI.workSpace.getText().getKey().copyKey();
@@ -29,9 +37,10 @@ public class SavedKeysGUI extends JPanel {
         workSpaceGUI.workSpace.addKeySetToSaved(copiedKey);
 
         keyList.addItem(keyName);
-        keyList.setSelectedItem(keyName);
     }
 
+    //MODIFIES this
+    //EFFECTS clears all the items in this
     public void clear() {
         while (keyList.getItemCount() != 0) {
             keyList.removeItemAt(0);

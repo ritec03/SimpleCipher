@@ -78,7 +78,6 @@ public class Text implements Writable {
         text = storeStringAsArray(textAsString);
     }
 
-    // todo
     //MODIFIES: this
     //EFFECTS: stores array list of characters in the text field
     public void addText(ArrayList<Character> c) {
@@ -91,7 +90,6 @@ public class Text implements Writable {
         ciphertext = storeStringAsArray(textAsString);
     }
 
-    // todo
     //MODIFIES: this
     //EFFECTS: stores array list of characters in the text field
     public void addCiphertext(ArrayList<Character> c) {

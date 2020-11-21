@@ -1,11 +1,5 @@
 # Substitution Cipher Encoder-Decoder
 
-## TODO
-* add specifications to UI class methods
-* add tests 
-* clean up methods
-* clean up to adhere to OOP
-
 ## Description
 
 Substitution cipher Encoder-Decoder will perform various operations relating

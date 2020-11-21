@@ -5,9 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/*
+This class represents menu bar in GUI
+ */
 public class MenuGUI extends JMenuBar implements ActionListener {
     WorkSpaceGUI workSpaceGUI;
 
+    // EFFECTS: produces MenuGUI object
     public MenuGUI(WorkSpaceGUI workSpaceGUI) {
         this.workSpaceGUI = workSpaceGUI;
         JMenu menu = new JMenu("Persistence");
@@ -22,6 +26,8 @@ public class MenuGUI extends JMenuBar implements ActionListener {
     }
 
     @Override
+    // MODIFIES workSpaceGUI
+    // EFFECTS responds to user selection of menus in menu bar to save or load previous data.
     public void actionPerformed(ActionEvent e) {
         JMenuItem source = (JMenuItem)(e.getSource());
         if (source.getText().equals("Save")) {

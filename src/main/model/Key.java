@@ -96,7 +96,6 @@ public class Key implements Writable {
     //MODIFIES: this
     //EFFECTS: removes key value pair from keymap if key is there and returns true, if key is not there,
     // returns false
-    // TODO check for correctness
     public boolean removeKeyValue(char key) {
         if (keyMap.containsKey(key)) {
             Character value = keyMap.get(key);
@@ -190,8 +189,8 @@ public class Key implements Writable {
         return mapKey.get(c) != null;
     }
 
-
-    //TODO write specifications
+    // MODIFIES this
+    // EFFECTS return a copy object of this
     public Key copyKey() {
         HashMap<Character, Character> savingMap = new HashMap<>();
         Set<Character> keys = getKeySet();
@@ -210,7 +209,6 @@ public class Key implements Writable {
         JSONObject json = new JSONObject();
         json.put("keyMap", keyMapToJson());
         json.put("mapKey", mapKeyToJson());
-        // TODO check this json thing
         json.put("name", name);
 //        json.put("sureList", sureListToJson());
         return json;

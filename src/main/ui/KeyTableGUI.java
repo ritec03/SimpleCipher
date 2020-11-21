@@ -7,12 +7,16 @@ import javax.swing.table.TableModel;
 import java.lang.reflect.Array;
 import java.util.Vector;
 
-public class KeyTable extends JPanel implements TableModelListener {
+/*
+Represents KeyTable with keys and values in main GUI
+ */
+public class KeyTableGUI extends JPanel implements TableModelListener {
     protected WorkSpaceGUI workSpaceGUI;
     JTable table;
     Vector<String> columnNameVector;
 
-    public KeyTable(WorkSpaceGUI workSpaceGUI) {
+    // EFFECTS: produces new KeyTableGUI
+    public KeyTableGUI(WorkSpaceGUI workSpaceGUI) {
         this.workSpaceGUI = workSpaceGUI;
 
         columnNameVector = new Vector<>();
@@ -30,6 +34,8 @@ public class KeyTable extends JPanel implements TableModelListener {
 
     }
 
+    // MODIFIES this
+    // EFFECTS updates this with new key-value pairs in Vector<Vector>
     public void updateKeyTableUI(Vector<Vector> vector) {
         JTable newTable = new JTable(vector, columnNameVector);
         TableModel model = newTable.getModel();
@@ -38,6 +44,9 @@ public class KeyTable extends JPanel implements TableModelListener {
     }
 
     @Override
+    // MODIFIES this, WorkSpaceGUI
+    // EFFECTS responds to changes in KeyTableGUI by changing corresponding key-value pairs in Key
+    // in WorkSpace of WorkSpaceGUI
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
@@ -55,8 +64,8 @@ public class KeyTable extends JPanel implements TableModelListener {
 
             workSpaceGUI.workSpace.getText().encryptText();
             String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-            workSpaceGUI.cipherTextUI.ciphertextArea.setText(null);
-            workSpaceGUI.cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+            workSpaceGUI.outputTextUI.ciphertextArea.setText(null);
+            workSpaceGUI.outputTextUI.ciphertextArea.insert(ciphertext, 0);
         }
 
     }

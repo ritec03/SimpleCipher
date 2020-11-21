@@ -15,15 +15,21 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;
 
+/*
+The class represents main GUI
+ */
+
 public class WorkSpaceGUI extends JFrame {
     WorkSpace workSpace;
-    TextUI textUI;
-    CipherTextUI cipherTextUI;
-    KeyTable keyTable;
+    TextGUI textGUI;
+    OutputTextUI outputTextUI;
+    KeyTableGUI keyTableGUI;
     SavedKeysGUI savedKeysGUI;
     JsonWriter writer = new JsonWriter("./data/workspace.json");
     JsonReader reader = new JsonReader("./data/workspace.json");
 
+    // MODIFIES this, keyTableGUI
+    // EFFECTS initializes main frame GUI
     public WorkSpaceGUI() {
         super("myFrame");
 
@@ -45,14 +51,16 @@ public class WorkSpaceGUI extends JFrame {
         JPanel bottomPanel = initializeBottomPanel();
         add(bottomPanel, BorderLayout.PAGE_END);
 
-        keyTable = new KeyTable(this);
-        add(keyTable, BorderLayout.LINE_END);
+        keyTableGUI = new KeyTableGUI(this);
+        add(keyTableGUI, BorderLayout.LINE_END);
 
         pack();
         System.out.println(this.getSize());
         setVisible(true);
     }
 
+    // MODIFIES this
+    // EFFECTS initializes bottom panel in BorderLayout of main frame
     private JPanel initializeBottomPanel() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
@@ -63,6 +71,8 @@ public class WorkSpaceGUI extends JFrame {
         return bottomPanel;
     }
 
+    // MODIFIES this
+    // EFFECTS returns JTextarea with text in the bottom panel in BorderLayout of main frame
     private JTextArea initializeExplanationText() {
         JTextArea explanation = new JTextArea(10,10);
         explanation.setEditable(false);
@@ -84,6 +94,8 @@ public class WorkSpaceGUI extends JFrame {
         return explanation;
     }
 
+    // MODIFIES this
+    // EFFECTS returns JLabel with Caesar cipher icon
     private JLabel initializePicture() {
         File image = new File("data/Caesar_Shift_Cipher_Wheel.png");
         BufferedImage caesar = null;
@@ -98,6 +110,8 @@ public class WorkSpaceGUI extends JFrame {
         return new JLabel(icon);
     }
 
+    // MODIFIES this, textGUI, outputTextUI
+    // EFFECTS initializes centre panel in main frame GUI
     private JPanel initializeCentrePanel() {
         JPanel centrePanel = new JPanel();
         centrePanel.setLayout(new BoxLayout(centrePanel,BoxLayout.X_AXIS));
@@ -106,29 +120,31 @@ public class WorkSpaceGUI extends JFrame {
         JPanel centrePanelLeft = new JPanel();
         centrePanelLeft.setLayout(new BoxLayout(centrePanelLeft, BoxLayout.Y_AXIS));
         JLabel label1 = new JLabel("Input text");
-        textUI = new TextUI(this);
+        textGUI = new TextGUI(this);
         centrePanelLeft.add(label1);
-        centrePanelLeft.add(textUI);
+        centrePanelLeft.add(textGUI);
         centrePanel.add(centrePanelLeft);
 
         //centre panel right part
         JPanel centrePanelRight = new JPanel();
         centrePanelRight.setLayout(new BoxLayout(centrePanelRight, BoxLayout.Y_AXIS));
         JLabel label2 = new JLabel("Output text");
-        cipherTextUI = new CipherTextUI(this);
+        outputTextUI = new OutputTextUI(this);
         centrePanelRight.add(label2);
-        centrePanelRight.add(cipherTextUI);
+        centrePanelRight.add(outputTextUI);
         centrePanel.add(centrePanelRight);
         return centrePanel;
     }
 
+    // MODIFIES this, savedKeysGUI
+    // EFFECTS initializes page_start in main frame
     private JPanel initializePageStartPanel() {
         savedKeysGUI = new SavedKeysGUI(this);
-        Button saveKeyButton = new Button("Save current key", this, "save");
+        ButtonGUI saveKeyButton = new ButtonGUI("Save current key", this, "save");
         JLabel savedKeyLabel = new JLabel("Select Key");
 
-        Button clearButton = new Button("Clear workspace", this, "clear");
-        Button chooseKey = new Button("Choose selected key", this, "choose");
+        ButtonGUI clearButton = new ButtonGUI("Clear workspace", this, "clear");
+        ButtonGUI chooseKey = new ButtonGUI("Choose selected key", this, "choose");
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.X_AXIS));
@@ -141,14 +157,14 @@ public class WorkSpaceGUI extends JFrame {
         return topPanel;
     }
 
+    // MODIFIES this, workSpace
+    // EFFECTS return a new workSpace
     private void createWorkspace() {
         workSpace = new WorkSpace();
     }
 
-    public static void main(String[] args) {
-        new WorkSpaceGUI();
-    }
-
+    // EFFECTS return Vector of Vectors with key and value for each key-value pair of Key in Text
+    // in workspace
     public Vector<Vector> produceKeyVector() {
         Set<Character> keySet = workSpace.getText().getKey().getKeySet();
         Vector<Vector> vector = new Vector<>();
@@ -162,6 +178,8 @@ public class WorkSpaceGUI extends JFrame {
         return vector;
     }
 
+    // EFFECTS saves current workspace object as workspace.json, through FileNotFoundException
+    // if file is not found.
     public void saveData() {
         try {
             saveWorkSpace();
@@ -178,19 +196,20 @@ public class WorkSpaceGUI extends JFrame {
         writer.close();
     }
 
+    // EFFECTS loads previous workspace into the GUI
     public void loadPreviousData() throws IOException {
         workSpace = reader.read();
 
-        keyTable.updateKeyTableUI(produceKeyVector());
+        keyTableGUI.updateKeyTableUI(produceKeyVector());
         workSpace.getText().encryptText();
 
         String text = workSpace.getText().printText();
-        textUI.textArea.setText(null);
-        textUI.textArea.insert(text, 0);
+        textGUI.textArea.setText(null);
+        textGUI.textArea.insert(text, 0);
 
         String ciphertext = workSpace.getText().printCiphertext();
-        cipherTextUI.ciphertextArea.setText(null);
-        cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+        outputTextUI.ciphertextArea.setText(null);
+        outputTextUI.ciphertextArea.insert(ciphertext, 0);
 
         savedKeysGUI.clear();
         for (Key k: workSpace.getSavedKeys()) {
@@ -200,20 +219,22 @@ public class WorkSpaceGUI extends JFrame {
         savedKeysGUI.savedKeysSoFar = workSpace.getSavedKeys().size() + 1;
     }
 
+    // MODIFIES this, workspace
+    // EFFECTS clears workspace and GUI of any data
     public void clear() {
         workSpace.getSavedKeys().clear();
         workSpace.getText().addText("");
         workSpace.getText().getKey().clear();
-        keyTable.updateKeyTableUI(produceKeyVector());
+        keyTableGUI.updateKeyTableUI(produceKeyVector());
         workSpace.getText().encryptText();
 
         String text = workSpace.getText().printText();
-        textUI.textArea.setText(null);
-        textUI.textArea.insert(text, 0);
+        textGUI.textArea.setText(null);
+        textGUI.textArea.insert(text, 0);
 
         String ciphertext = workSpace.getText().printCiphertext();
-        cipherTextUI.ciphertextArea.setText(null);
-        cipherTextUI.ciphertextArea.insert(ciphertext, 0);
+        outputTextUI.ciphertextArea.setText(null);
+        outputTextUI.ciphertextArea.insert(ciphertext, 0);
         savedKeysGUI.clear();
     }
 }
