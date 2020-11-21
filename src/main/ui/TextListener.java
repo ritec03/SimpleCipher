@@ -6,6 +6,8 @@ import javax.swing.event.DocumentListener;
 
 /*
 This class represents listeners for textArea in textGUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 public class TextListener implements DocumentListener {
     protected WorkSpaceGUI workSpaceGUI;

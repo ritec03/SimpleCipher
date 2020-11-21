@@ -8,6 +8,8 @@ import java.util.Vector;
 
 /*
 This class represents SavedKeysGUI combo box in main GUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 public class SavedKeysGUI extends JPanel {
     private final WorkSpaceGUI workSpaceGUI;

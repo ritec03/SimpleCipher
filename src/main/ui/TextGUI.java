@@ -2,7 +2,11 @@ package ui;
 
 import javax.swing.*;
 
-
+/*
+Represents TextArea in GUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
+ */
 public class TextGUI extends JPanel {
     protected JTextArea textArea;
     protected WorkSpaceGUI workSpaceGUI;

@@ -9,6 +9,8 @@ import java.util.Vector;
 
 /*
 Represents KeyTable with keys and values in main GUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 public class KeyTableGUI extends JPanel implements TableModelListener {
     protected WorkSpaceGUI workSpaceGUI;

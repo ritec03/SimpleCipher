@@ -7,6 +7,8 @@ import java.io.IOException;
 
 /*
 This class represents menu bar in GUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 public class MenuGUI extends JMenuBar implements ActionListener {
     WorkSpaceGUI workSpaceGUI;

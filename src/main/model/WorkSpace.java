@@ -88,7 +88,7 @@ public class WorkSpace implements Writable {
 //    public void setPreviousText(Text text) {
 //        previousText = text;
 //    }
-    
+
     //MODIFIES: this
     //EFFECTS: sets text field to text, sets the current text, if there is any, to previousText
     public void setText(Text text) {

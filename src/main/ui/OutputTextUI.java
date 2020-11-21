@@ -4,6 +4,8 @@ import javax.swing.*;
 
 /*
 Represents output text in GUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 public class OutputTextUI extends JPanel {
     protected JTextArea ciphertextArea;

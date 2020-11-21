@@ -17,6 +17,8 @@ import java.util.Vector;
 
 /*
 The class represents main GUI
+CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
+https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 
 public class WorkSpaceGUI extends JFrame {
