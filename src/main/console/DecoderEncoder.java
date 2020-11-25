@@ -267,7 +267,7 @@ public class DecoderEncoder {
             System.out.println("Please, print index of key you want to use");
             int input = scanner.nextInt();
             Key newKey = ws.getSavedKeys().get(input);
-            ws.getText().setKeyMap(newKey);
+            ws.getText().setKey(newKey);
             System.out.println("Your new key is: " + ws.getText().getKey().printKey());
         }
     }

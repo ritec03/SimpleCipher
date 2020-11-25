@@ -90,7 +90,7 @@ public class JsonReader {
     private Text parseText(JSONObject text) {
         Text t = new Text();
         Key key = parseKey((JSONObject) text.get("key"));
-        t.setKeyMap(key);
+        t.setKey(key);
         JSONArray jsonText = (JSONArray) text.get("text");
         ArrayList<Character> txt = new ArrayList<>();
         int length = jsonText.length();

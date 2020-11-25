@@ -66,8 +66,8 @@ public class KeyTableGUI extends JPanel implements TableModelListener {
 
             workSpaceGUI.workSpace.getText().encryptText();
             String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-            workSpaceGUI.outputTextUI.ciphertextArea.setText(null);
-            workSpaceGUI.outputTextUI.ciphertextArea.insert(ciphertext, 0);
+            workSpaceGUI.outputTextUI.textArea.setText(null);
+            workSpaceGUI.outputTextUI.textArea.insert(ciphertext, 0);
         }
 
     }

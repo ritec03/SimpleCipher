@@ -1,22 +1,23 @@
 package ui;
 
-import javax.swing.*;
-
 /*
 Represents output text in GUI
 CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
 https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
-public class OutputTextUI extends JPanel {
-    protected JTextArea ciphertextArea;
-    protected WorkSpaceGUI workSpaceGUI;
+public class OutputTextUI extends TextGUI {
 
     public OutputTextUI(WorkSpaceGUI gui) {
-        workSpaceGUI = gui;
-        ciphertextArea = new JTextArea(20, 10);
-        ciphertextArea.setEditable(true);
-        ciphertextArea.setLineWrap(true);
-        JScrollPane scrollPane = new JScrollPane(ciphertextArea);
-        add(scrollPane);
+        super(gui);
+    }
+
+    @Override
+    // MODIFIES: This
+    // EFFECTS: syncs the text area with the Text object in workspace in workSpaceGUI by
+    // updating this textarea according to ciphertext in Text.
+    public void syncWithText() {
+        String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
+        textArea.setText(null);
+        textArea.insert(ciphertext, 0);
     }
 }

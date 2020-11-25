@@ -57,3 +57,12 @@ and have tried to a file.
 #### Story 6: 
 As a user, I want to be able to reload the workspace I saved the last time from a file. 
 
+## Phase 4: Task 2
+
+The task of implementing a type hierarchy was implemented in the ui package. Both InputTextGUI and 
+OutputtextGUI extend TextGUI, each overrides syncWithText() method in a different way. 
+
+Also, the Key class uses Map interface to store keys and values in the Key. 
+
+##Phase 4: Task 3
+

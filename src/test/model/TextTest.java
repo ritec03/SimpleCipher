@@ -116,7 +116,7 @@ public class TextTest {
         map.put('4', 'd');
         map.put('5', 'e');
         testKey.setWholeKeySet(map);
-        text.setKeyMap(testKey);
+        text.setKey(testKey);
 
         String s = "A dae bcd.H";
         text.addCiphertext(s);

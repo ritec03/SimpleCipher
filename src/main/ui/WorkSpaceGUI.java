@@ -23,7 +23,7 @@ https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
 
 public class WorkSpaceGUI extends JFrame {
     WorkSpace workSpace;
-    TextGUI textGUI;
+    InputTextGUI inputTextGUI;
     OutputTextUI outputTextUI;
     KeyTableGUI keyTableGUI;
     SavedKeysGUI savedKeysGUI;
@@ -114,7 +114,7 @@ public class WorkSpaceGUI extends JFrame {
         return new JLabel(icon);
     }
 
-    // MODIFIES this, textGUI, outputTextUI
+    // MODIFIES this, inputTextGUI, outputTextUI
     // EFFECTS initializes centre panel in main frame GUI
     private JPanel initializeCentrePanel() {
         JPanel centrePanel = new JPanel();
@@ -124,9 +124,9 @@ public class WorkSpaceGUI extends JFrame {
         JPanel centrePanelLeft = new JPanel();
         centrePanelLeft.setLayout(new BoxLayout(centrePanelLeft, BoxLayout.Y_AXIS));
         JLabel label1 = new JLabel("Input text");
-        textGUI = new TextGUI(this);
+        inputTextGUI = new InputTextGUI(this);
         centrePanelLeft.add(label1);
-        centrePanelLeft.add(textGUI);
+        centrePanelLeft.add(inputTextGUI);
         centrePanel.add(centrePanelLeft);
 
         //centre panel right part
@@ -208,17 +208,17 @@ public class WorkSpaceGUI extends JFrame {
         workSpace.getText().encryptText();
 
         String text = workSpace.getText().printText();
-        textGUI.textArea.setText(null);
-        textGUI.textArea.insert(text, 0);
+        inputTextGUI.textArea.setText(null);
+        inputTextGUI.textArea.insert(text, 0);
 
         String ciphertext = workSpace.getText().printCiphertext();
-        outputTextUI.ciphertextArea.setText(null);
-        outputTextUI.ciphertextArea.insert(ciphertext, 0);
+        outputTextUI.textArea.setText(null);
+        outputTextUI.textArea.insert(ciphertext, 0);
 
         savedKeysGUI.clear();
         for (Key k: workSpace.getSavedKeys()) {
             String keyName = k.getName();
-            savedKeysGUI.keyList.addItem(keyName);
+            savedKeysGUI.keyListComboBox.addItem(keyName);
         }
         savedKeysGUI.savedKeysSoFar = workSpace.getSavedKeys().size() + 1;
     }
@@ -233,12 +233,12 @@ public class WorkSpaceGUI extends JFrame {
         workSpace.getText().encryptText();
 
         String text = workSpace.getText().printText();
-        textGUI.textArea.setText(null);
-        textGUI.textArea.insert(text, 0);
+        inputTextGUI.textArea.setText(null);
+        inputTextGUI.textArea.insert(text, 0);
 
         String ciphertext = workSpace.getText().printCiphertext();
-        outputTextUI.ciphertextArea.setText(null);
-        outputTextUI.ciphertextArea.insert(ciphertext, 0);
+        outputTextUI.textArea.setText(null);
+        outputTextUI.textArea.insert(ciphertext, 0);
         savedKeysGUI.clear();
     }
 }

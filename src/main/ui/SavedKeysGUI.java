@@ -13,7 +13,7 @@ https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
 public class SavedKeysGUI extends JPanel {
     private final WorkSpaceGUI workSpaceGUI;
-    JComboBox keyList;
+    JComboBox keyListComboBox;
     int savedKeysSoFar;
 
     //MODIFIES this
@@ -23,9 +23,9 @@ public class SavedKeysGUI extends JPanel {
         savedKeysSoFar = 1;
         Vector<String> keyStrings = new Vector<>();
 
-        keyList = new JComboBox(keyStrings);
-        keyList.setOpaque(false);
-        add(keyList);
+        keyListComboBox = new JComboBox(keyStrings);
+        keyListComboBox.setOpaque(false);
+        add(keyListComboBox);
     }
 
     //MODIFIES this, workSpaceGUI
@@ -38,14 +38,14 @@ public class SavedKeysGUI extends JPanel {
 
         workSpaceGUI.workSpace.addKeySetToSaved(copiedKey);
 
-        keyList.addItem(keyName);
+        keyListComboBox.addItem(keyName);
     }
 
     //MODIFIES this
     //EFFECTS clears all the items in this
     public void clear() {
-        while (keyList.getItemCount() != 0) {
-            keyList.removeItemAt(0);
+        while (keyListComboBox.getItemCount() != 0) {
+            keyListComboBox.removeItemAt(0);
         }
         savedKeysSoFar = 1;
     }

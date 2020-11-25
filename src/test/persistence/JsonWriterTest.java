@@ -85,13 +85,13 @@ public class JsonWriterTest {
             text = new Text();
             String s = "A bc Def.";
             text.addText(s);
-            text.setKeyMap(key3);
+            text.setKey(key3);
             text.encryptText();
 
             previousText = new Text();
             String ps = "abcde";
             previousText.addText(ps);
-            previousText.setKeyMap(key2);
+            previousText.setKey(key2);
             previousText.encryptText();
 
             WorkSpace ws = new WorkSpace();

@@ -4,10 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -23,8 +20,8 @@ import java.util.Set;
  * during decoding, the sure list is represented as a set of keys.
  */
 public class Key implements Writable {
-    private HashMap<Character, Character> keyMap;
-    private HashMap<Character, Character> mapKey;
+    private Map<Character, Character> keyMap;
+    private Map<Character, Character> mapKey;
     private String name;
 //    private HashSet<Character> sureList;
 

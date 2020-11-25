@@ -64,7 +64,7 @@ public class WorkSpaceTest {
     // when savedKeys is NOT empty
     public void testAddKeyToSavedNonEmpty(){
         ws.setText(text);
-        ws.getText().setKeyMap(key1);
+        ws.getText().setKey(key1);
         ws.addKeySetToSaved(key1);
         assertEquals(1, ws.getSavedKeys().size());
         Key k = ws.getSavedKeys().get(0);

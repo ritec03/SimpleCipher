@@ -36,10 +36,10 @@ public class ButtonGUI extends JPanel implements ActionListener {
         } else if (e.getActionCommand().equals("clear")) {
             workSpaceGUI.clear();
         } else if (e.getActionCommand().equals("choose")) {
-            String selectedKeyName = (String) workSpaceGUI.savedKeysGUI.keyList.getSelectedItem();
+            String selectedKeyName = (String) workSpaceGUI.savedKeysGUI.keyListComboBox.getSelectedItem();
             for (Key k : workSpaceGUI.workSpace.getSavedKeys()) {
                 if (selectedKeyName.equals(k.getName())) {
-                    workSpaceGUI.workSpace.getText().setKeyMap(k);
+                    workSpaceGUI.workSpace.getText().setKey(k);
                 }
             }
 
@@ -49,8 +49,8 @@ public class ButtonGUI extends JPanel implements ActionListener {
             workSpaceGUI.workSpace.getText().encryptText();
 
             String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-            workSpaceGUI.outputTextUI.ciphertextArea.setText(null);
-            workSpaceGUI.outputTextUI.ciphertextArea.insert(ciphertext, 0);
+            workSpaceGUI.outputTextUI.textArea.setText(null);
+            workSpaceGUI.outputTextUI.textArea.insert(ciphertext, 0);
 
         }
     }

@@ -2,8 +2,6 @@ package model;
 
 import org.json.JSONObject;
 import persistence.Writable;
-
-import java.awt.image.AreaAveragingScaleFilter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -51,7 +49,7 @@ public class Text implements Writable {
 
     //MODIFIES: this
     //EFFECTS: sets the key
-    public void setKeyMap(Key key) {
+    public void setKey(Key key) {
         this.key = key;
     }
 

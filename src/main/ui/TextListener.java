@@ -1,11 +1,13 @@
 package ui;
 
+import model.Key;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /*
-This class represents listeners for textArea in textGUI
+This class represents listeners for textArea in inputTextGUI
 CITATION: the code in this class has been created with the help of Oracle tutorial on Swing
 https://docs.oracle.com/javase/tutorial/uiswing/TOC.html
  */
@@ -20,18 +22,15 @@ public class TextListener implements DocumentListener {
 
     @Override
 
-    // MODIFIES: workSpaceGUI, textGUI
-    // EFFECTS: updates GUI components on user input (insert) in the textArea in textGUI
+    // MODIFIES: workSpaceGUI, inputTextGUI
+    // EFFECTS: updates GUI components on user input (insert) in the textArea in inputTextGUI
     public void insertUpdate(DocumentEvent e) {
-        String textInUI = workSpaceGUI.textGUI.returnText();
+        String textInUI = workSpaceGUI.inputTextGUI.returnText();
         workSpaceGUI.workSpace.getText().addText(textInUI);
         updateKey();
         workSpaceGUI.keyTableGUI.updateKeyTableUI(workSpaceGUI.produceKeyVector());
         workSpaceGUI.workSpace.getText().encryptText();
-
-        String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-        workSpaceGUI.outputTextUI.ciphertextArea.setText(null);
-        workSpaceGUI.outputTextUI.ciphertextArea.insert(ciphertext, 0);
+        workSpaceGUI.outputTextUI.syncWithText();
     }
 
     // MODIFIES: workSpaceGUI
@@ -42,17 +41,13 @@ public class TextListener implements DocumentListener {
     }
 
     @Override
-    // MODIFIES: workSpaceGUI, textGUI
-    // EFFECTS: updates GUI components on user input (remove) in the textArea in textGUI
+    // MODIFIES: workSpaceGUI, inputTextGUI
+    // EFFECTS: updates GUI components on user input (remove) in the textArea in inputTextGUI
     public void removeUpdate(DocumentEvent e) {
-        String textInUI = workSpaceGUI.textGUI.textArea.getText();
-        workSpaceGUI.workSpace.getText().addText(textInUI);
-        workSpaceGUI.workSpace.getText().encryptText();
-
-        String ciphertext = workSpaceGUI.workSpace.getText().printCiphertext();
-        workSpaceGUI.outputTextUI.ciphertextArea.setText(null);
-        workSpaceGUI.outputTextUI.ciphertextArea.insert(ciphertext, 0);
+        workSpaceGUI.inputTextGUI.syncWithText();
+        workSpaceGUI.outputTextUI.syncWithText();
     }
+
 
     @Override
     public void changedUpdate(DocumentEvent e) {
