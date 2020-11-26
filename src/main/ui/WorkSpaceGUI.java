@@ -27,6 +27,7 @@ public class WorkSpaceGUI extends JFrame {
     OutputTextUI outputTextUI;
     KeyTableGUI keyTableGUI;
     SavedKeysGUI savedKeysGUI;
+    MenuGUI menuBar;
     JsonWriter writer = new JsonWriter("./data/workspace.json");
     JsonReader reader = new JsonReader("./data/workspace.json");
 
@@ -41,7 +42,7 @@ public class WorkSpaceGUI extends JFrame {
 
         createWorkspace();
 
-        MenuGUI menuBar = new MenuGUI(this);
+        menuBar = new MenuGUI(this);
         setJMenuBar(menuBar);
 
         JPanel topPanel = initializePageStartPanel();

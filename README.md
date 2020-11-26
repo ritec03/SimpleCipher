@@ -66,3 +66,11 @@ Also, the Key class uses Map interface to store keys and values in the Key.
 
 ##Phase 4: Task 3
 
+* I would reduce the coupling, especially semantic coupling between the classes. For example, I would 
+introduce more class variable that denote strings and commands. I would also make GUI classes more 
+independent by making WorkSpaceGUI to pass only those fields to other classes that are necessary. 
+* I would increase cohesion also think about splitting the Text class into two classes - one that 
+deals with input text and another that deals with output text, and I would introduce a type hierarchy 
+so that both of these classes would extend an abstract class Text. 
+* I would go through all the code and reduce the number of duplication of code by introducing more helper 
+methods. For example, there is code duplication for updating workspace and text areas in GUI classes
